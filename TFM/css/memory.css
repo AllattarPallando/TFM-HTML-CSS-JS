@@ -1,0 +1,162 @@
+/*Normalizar y aplicar border box(medidas reales sin rellenos ni bordes) a todos los elementos*/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Orbitron", sans-serif;
+    font-size: 100%;
+    overflow-y: hidden;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.main-container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 1px 1px 5px #000;
+    border-radius: 20px;
+    margin-top: 25px;
+}
+
+.mark-panel {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ccc;
+    border-radius: 20px 20px 0 0;
+}
+
+.m-count,
+.timer {
+    color: #fff;
+    text-shadow: 1px 1px #000;
+    padding: 10px 20px;
+}
+
+.sm-count,
+.timer-start {
+    color: #F2F230;
+}
+
+.rating {
+    flex-basis: 90%;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 60px;
+}
+
+.star {
+    display: inline-block;
+    padding: 1em;
+}
+
+i {
+    font-size: 1.5em;
+    color: #F2F230;
+    text-shadow: 1px 1px #000;
+}
+
+.reset {
+    flex-basis: 5%;
+    padding: 17.6px 22px 17.6px 0;
+}
+
+.reset-btn {
+    background-color: transparent;
+    border: none;
+}
+
+.cards {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffc6;
+    padding: 15px 30px;
+    border-radius: 0 0 20px 20px;
+}
+
+.card {
+    flex-basis: 25%;
+    padding: 10px 20px;
+    text-decoration: none;
+}
+
+.card.flip.right {
+    animation: right 0.5s;
+}
+
+.card.flip {
+    transform: rotateY(180deg);
+    transition: transform 0.3s linear;
+}
+
+.card-info {
+    background-image: url("../img/Fondo_Cartas_Historia.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    box-shadow: 1px 1px 5px #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card .img {
+    border-radius: 20px 20px 0 0;
+    visibility: hidden;
+    width: 100%;
+}
+
+.card .img.flip {
+    visibility: visible !important;
+}
+
+.card .text {
+    visibility: hidden;
+    transform: rotateY(-180deg);
+    color: #fff;
+    text-shadow: 1px 1px #000;
+    background-color: #F2F230;
+    width: 100%;
+    text-align: center;
+    border-radius: 0 0 15px 15px;
+}
+
+.card .text.flip {
+    visibility: visible !important;
+}
+
+.card .text.flip.right {
+    background-color: #30f260;
+}
+
+@keyframes right {
+    0% {
+        transform: scale(-1, 1);
+    }
+    80% {
+        transform: scale(-1.1, 1.1);
+    }
+    100% {
+        transform: scale(-1, 1);
+    }
+}
+
+.modal {
+    display: none;
+}

@@ -1,0 +1,361 @@
+/*-------- AHORCADO --------*/
+
+
+/*Todas las medidas del contenido del body son exactas, sin contar bordes, rellenos, etc*/
+
+.ahorcado {
+    box-sizing: border-box;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 100%;
+    overflow-y: hidden;
+}
+
+
+/*Ancho y posicionamiento de la sección principal*/
+
+.main-container {
+    max-width: 1080px;
+    min-height: 600px;
+    margin: 55px auto;
+    background-image: url("../img/Fondo.png");
+    background-repeat: no-repeat;
+    position: relative;
+}
+
+
+/*Quitar visibilidad al título principal*/
+
+.title {
+    visibility: hidden;
+}
+
+
+/*Maquetación del menú*/
+
+.menu-bar {
+    width: 1062px;
+    height: 92px;
+    background-image: url("../img/Menu.png");
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+}
+
+
+/*Maquetación del panel que contiene las pistas y los botones para pedir dichas pistas o cambiar la palabra a adivinar*/
+
+.clues {
+    margin-left: 20px;
+    padding: 0 10px;
+    flex-basis: 80%;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+/*Maquetación de cada uno de los paneles de las pistas*/
+
+.clue {
+    width: 238px;
+    height: 64px;
+    color: #000;
+    text-shadow: 1px 1px #00A676;
+    background-image: url("../img/HuecoPista.png");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*Maquetación enlaces de las pistas*/
+
+.clue a {
+    text-decoration: none;
+    color: #000;
+    text-align: center;
+}
+
+
+/*Maquetación de los botones del menu*/
+
+.buttons {
+    flex-basis: 20%;
+    height: 58px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/*Estilo general de los botones del menu*/
+
+.a-button,
+button {
+    width: 62px;
+    height: 58px;
+    border-radius: 10px;
+    background-position: center;
+    z-index: 2;
+}
+
+
+/*Fondo de cada botón en concreto*/
+
+.a-button#reload {
+    margin: 0 15px;
+    background-image: url("../img/Recargar.png");
+}
+
+.a-button#back {
+    margin: 0 15px;
+    background-image: url("../img/Salir.png");
+}
+
+
+/*Maquetación y tamaño de la única sección de la página*/
+
+.section-one {
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+/*Maquetación y tamaño del contenedor de las imágenes del ahorcado*/
+
+.gallery {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+
+/*Maquetación y opacidad de las imágenes en concreto*/
+
+#image5,
+#image4,
+#image3,
+#image2,
+#image1,
+#image0 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity .3s ease;
+}
+
+
+/*Ordenar por capas las imágenes*/
+
+#image6,
+#image4,
+#image3,
+#image2,
+#image0 {
+    z-index: 1;
+}
+
+
+/*Etiqueta para poner opacidad a la imágen correspondiente en cada caso*/
+
+.fade-in {
+    opacity: 1 !important;
+}
+
+
+/*Etiqueta para quitar opacidad a la imágen correspondiente en cada caso*/
+
+.fade-out {
+    opacity: 0 !important;
+}
+
+
+/*Maquetación de los paneles de las letras*/
+
+.alphabet-panel {
+    width: 380px;
+    height: 375px;
+    position: absolute;
+    bottom: 55px;
+    right: 77px;
+}
+
+
+/*Ancho y alto del contenedor del alfabeto*/
+
+.letters {
+    width: 100%;
+    height: 80%;
+}
+
+
+/*Maquetación del contenedor de los botones del alfabeto*/
+
+.abc,
+.accents {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+/*Estilo de los botones del alfabeto*/
+
+.abc button,
+.accents button {
+    width: 45px;
+    height: 45px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5em;
+    font-weight: 700;
+    background-color: #00A676;
+    color: #fff;
+    text-shadow: 1.2px 1.2px #000;
+    border: 2px solid #fff;
+    margin: 5px;
+}
+
+.accents button {
+    background-color: #fff;
+    color: #00A676;
+    border: 2px solid #00A676;
+}
+
+
+/*Etilo del texto que indica las oportunidades retsantes para acertar la palabra*/
+
+.opportunities h3 {
+    font-size: 1.4em;
+    text-align: center;
+    text-shadow: 1.5px 1.5px #00A676;
+    margin: 0px;
+    margin-bottom: 20px;
+}
+
+
+/*El número de oportunidades lleva otro estilo*/
+
+span#opportunities {
+    color: #00A676;
+    text-shadow: 1.5px 1.5px #000;
+}
+
+
+/*Maquetación del contenedor del mensaje al pulsar una letra*/
+
+.msg-container {
+    height: 50px;
+}
+
+
+/*Maquetación del texto al pulsar una letra*/
+
+.msg-container h3 {
+    margin: 0;
+    position: absolute;
+    bottom: 75px;
+    left: 375px;
+    font-size: 2em;
+    transform: scale(0);
+    text-shadow: 1px 1px #000;
+}
+
+
+/*Animación del mensaje de correcto o incorrecto*/
+
+.animation {
+    animation: zoomInOut 1s ease;
+}
+
+
+/*En caso de fallar el testo será rojo*/
+
+.red {
+    color: rgb(255, 0, 0);
+}
+
+
+/*En caso de acertar el texto será verde*/
+
+.green {
+    color: rgb(0, 153, 0);
+}
+
+
+/*Maquetación del contenedor de la palabra a adivinar*/
+
+.word-container {
+    width: 490px;
+    height: 60px;
+    background-image: url("../img/Palabra.png");
+    position: absolute;
+    bottom: 5px;
+    left: 35px;
+}
+
+
+/*Etiqueta para hacer aparecer o desaparecer los elementos*/
+
+.zoom-in {
+    transform: scale(1) !important;
+}
+
+
+/*Keyframes de la animación para el texto cuando se pulse la letra*/
+
+@keyframes zoomInOut {
+    0% {
+        transform: scale(0);
+    }
+    50% {
+        transform: scale(1);
+    }
+    70% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+
+
+/*Estilo y maquetación de los espacios para la palabra escogida*/
+
+h2#word {
+    margin: 0;
+    padding-top: 8px;
+    font-size: 2em;
+    color: #000;
+    text-shadow: 1.2px 1.2px #00A676;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    text-align: center;
+}
+
+
+/*Maquetación de la imagen que sale al finalizar el juego*/
+
+.final-img {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+}

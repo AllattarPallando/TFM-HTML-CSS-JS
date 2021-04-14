@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Ahorcado</title>
+
+    <!--METADATOS-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página con un minijuego del ahorcado.">
+
+    <!--LINKS-->
+    <link rel="stylesheet" href="css/ahorcado.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+</head>
+
+<body class="ahorcado">
+
+    <div class="main-container">
+
+        <h1 class="title">Juego del ahorcado</h1>
+
+        <div class="menu-bar">
+            <!-- MENÚ DE PISTAS INTERACTIVAS -->
+            <ul class="clues">
+                <li class="clue"><a href="#" class="clue-text">Pista 1</a></li>
+                <li class="clue"><a href="#" class="clue-text">Pista 2</a></li>
+                <li class="clue"><a href="#" class="clue-text">Pista 3</a></li>
+            </ul>
+            <!-- BOTONES DE RECARGA Y VOLVER -->
+            <div class="buttons">
+                <a class="a-button" id="reload"></a>
+                <a class="a-button" id="back"></a>
+            </div>
+
+        </div>
+
+        <div class="section-one">
+
+            <!-- IMÁGENES DEL AHORCADO -->
+            <picture class="gallery">
+                <img src="img/Poste.png" alt="" id="image6">
+                <img src="img/Soga.png" alt="" id="image5">
+                <img src="img/Cabeza.png" alt="" id="image4">
+                <img src="img/Cuerpo.png" alt="" id="image3">
+                <img src="img/Brazos.png" alt="" id="image2">
+                <img src="img/Capa.png" alt="" id="image1">
+                <img src="img/Muerte.png" alt="" id="image0">
+            </picture>
+
+            <!-- PANEL CON BOTONES DE LETRAS Y OPORTUNIDADES RESTANTES -->
+            <div class="alphabet-panel">
+
+                <div class="opportunities">
+                    <h3>Oportunidades: <span id="opportunities">6</span></h3>
+                </div>
+
+                <div class="letters">
+                    <div class="abc" id="alphabet"></div>
+                    <div class="accents" id="b-accents"></div>
+                </div>
+
+            </div>
+
+            <!-- TEXTO QUE INDICA SI SE HA ACERTADO O FALLADO LA LETRA PULSADA -->
+            <div class="msg-container">
+                <h3 id="press-message">Bieen</h3>
+            </div>
+
+            <!-- PALABRA A ADIVINAR -->
+            <div class="word-container">
+                <h2 class="word" id="word"></h2>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- IMAGEN, SALDRÁ UNA VEZ ACABADO EL JUEGO E INDICARÁ SI SE HA GANADO O PERDIDO -->
+    <img id="final-img"></img>
+
+    <script src="js/ahorcado.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,214 @@
+/*VARIABLES*/
+
+:root {
+    --verde: #00A676;
+    --amarillo: #F2F230;
+    --morado: #801A86;
+}
+
+
+/*--------HOME--------*/
+
+
+/*Tipografía, peso y tamaño de la fuente*/
+
+.main,
+.c-selection {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 400;
+    font-size: 100%;
+    margin: 0;
+    overflow-y: hidden;
+}
+
+
+/*Situamos los encabezados principales de la página fijos en el centro y por encima del nav*/
+
+header {
+    width: 100%;
+    position: fixed;
+    z-index: 1;
+    padding: 20px;
+}
+
+
+/*Ajustes de los encabezados*/
+
+h1,
+h2 {
+    font-weight: 700;
+    color: #fff;
+    text-align: center;
+    text-shadow: 1.7px 1.7px #000;
+}
+
+
+/*Quitamos el estilo de la lista del nav y maquetación del mismo*/
+
+nav ul {
+    list-style: none;
+    display: flex;
+    padding: 0;
+    margin: 0;
+}
+
+
+/*Cada elemento de la lista ocupará una parte proporcional al espacio total, es decir lo repartimos a partes iguales*/
+
+nav li {
+    flex-grow: 1;
+}
+
+
+/*maquetación y ajustes de todos los enlaces*/
+
+nav a {
+    display: block;
+    height: 100vh;
+    color: var(--verde);
+    font-weight: 400;
+    text-decoration: none;
+    margin: 0;
+    font-size: 2em;
+    position: relative;
+}
+
+
+/*Ajustes personalizados de enlaces concretos*/
+
+nav li:first-child a {
+    background: url("../img/Fondo_Ahorcado.png") no-repeat center;
+    background-size: cover;
+}
+
+nav li:nth-child(2) a {
+    /*background:url("../img/azul.jpg") no-repeat center;
+    background-size:cover;*/
+    color: var(--amarillo);
+}
+
+nav li:last-child a {
+    /*background:url("../img/rojo.jpg") no-repeat center;
+    background-size:cover;*/
+    color: var(--morado);
+}
+
+
+/*Maquetación y ajustes de todos los textos que llevan dentro los enlaces*/
+
+.text {
+    width: 100%;
+    position: absolute;
+    bottom: 40px;
+    left: 0;
+    right: 50%;
+    text-align: center;
+    text-shadow: 1.5px 1.5px #000;
+}
+
+
+/*Ajustes personalizados para textos en concreto*/
+
+.last {
+    bottom: 40px;
+}
+
+
+/*-------- SELECCIÓN DE CATEGORÍA --------*/
+
+.c-section {
+    display: flex;
+}
+
+.c-panel {
+    flex-grow: 1;
+}
+
+.c-button {
+    height: 100vh;
+    display: block;
+    position: relative;
+    color: var(--verde);
+    text-decoration: none;
+    font-size: 2em;
+}
+
+.c-button#g {
+    background: url("../img/Fondo_Geografia.png") no-repeat center;
+    background-size: cover;
+    color: #00A676;
+}
+
+.c-button#h {
+    background: url("../img/Fondo_Historia.png") no-repeat center;
+    background-size: cover;
+    color: #F2F230;
+}
+
+.c-button#a {
+    background: url("../img/Fondo_Arte.png") no-repeat center;
+    background-size: cover;
+    color: #801A86;
+}
+
+@media screen and (max-width:1100px) {
+    header {
+        width: 50%;
+        padding: 0px;
+        padding-left: 20px;
+    }
+    .main,
+    .c-selection {
+        overflow-x: hidden;
+    }
+    h1,
+    h2 {
+        text-align: start;
+    }
+    nav ul,
+    .c-section {
+        flex-direction: column;
+    }
+    nav a,
+    .c-button {
+        height: 33.3333vh;
+    }
+    nav li:first-child a {
+        background-position: center -465px;
+    }
+    #ha .text,
+    #m .text {
+        bottom: 50%;
+        right: 10px;
+        left: 35%;
+    }
+    #s .text {
+        right: 10px;
+        left: 35%;
+    }
+    #g .text,
+    #h .text,
+    #a .text {
+        top: 30%;
+        bottom: 0;
+        left: 50px;
+        text-align: start;
+        font-size: 2.5em;
+    }
+    .c-button#g {
+        background-size: 25%;
+        background-position: right;
+        background-color: #AFEFD7;
+    }
+    .c-button#h {
+        background-size: 24%;
+        background-position-x: right;
+        background-position-y: -1px;
+        background-color: #F4EA83;
+    }
+    .c-button#a {
+        background-size: 25%;
+        background-position: right;
+        background-color: #9A75A0;
+    }
+}
