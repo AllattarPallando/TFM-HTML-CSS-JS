@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Memory-Game</title>
+
+    <!--METADATOS-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página con un minijuego de memoria.">
+
+    <!--LINKS-->
+    <link rel="stylesheet" href="css/memory.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <!--Contenedor principal de la página-->
+    <div class="main-container">
+        <!--Panel de puntuación-->
+        <section class="mark-panel">
+            <!--Contador de movimientos-->
+            <div class="m-count">
+                <h3>Movimientos: <span class="sm-count">0</span></h3>
+            </div>
+            <!--Cronómetro para saber cuánto tiempo se tarda en completar el juego-->
+            <div class="timer">
+                <h3>Tiempo: <span class="timer-start">00:00  </span></h3>
+            </div>
+            <!--Lista con las estrellas que indicarán la puntuación-->
+            <ul id="rating" class="rating">
+                <li class="star"><i class="far fa-star"></i></li>
+                <li class="star"><i class="far fa-star"></i></li>
+                <li class="star"><i class="far fa-star"></i></li>
+            </ul>
+            <!--Botón para resetear el juego-->
+            <div class="reset">
+                <button class="reset-btn"><i class="fas fa-redo-alt"></i></button>
+            </div>
+        </section>
+
+        <!-- Cartas interactivas del juego -->
+        <div class="cards">
+        </div>
+
+        <!-- Modal que saldrá cuando se acabe el juego -->
+        <section class="win-panel">
+            <div id="modal" class="modal">
+                <div class="wpanel-content">
+                    <img class="modal-img" src="">
+                    <h2>¡¡¡ Enhorabuena !!!</h2>
+                    <p>Has completado el juego y encontrado los <span class="device"></span> pares de cartas</p>
+                    <p>Tiempo : <span class="data"></span></p>
+                    <p>Movimientos : <span class="data"></span></p>
+                    <ul id="rating" class="rating">
+                        <li class="star"><i></i></li>
+                        <li class="star"><i></i></li>
+                        <li class="star"><i></i></li>
+                    </ul>
+                    <button class="reset-btn-wp">Volver a jugar</button>
+                    <button class="home-btn">Jugar a otra cosa</button>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!--SCRIPTS-->
+    <script src="js/memory.js"></script>
+</body>
+
+</html>
