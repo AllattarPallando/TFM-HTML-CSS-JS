@@ -3,7 +3,7 @@ window.addEventListener("load", function() {
     // ------------ VARIABLES ------------
 
     // PALABRAS SEGÚN EL TEMA ESCOGIDO
-    var geographyWords = [
+    let geographyWords = [
         ["Madrid", "Ciudad española", "Tiene una sola provincia", "Es conocida por su gran cocido"],
         ["Alemania", "País europeo", "Tiene frontera con Polonia", "Su capital tiene un muro muy conocido"],
         ["Argentina", "País de America del Sur", "El nombre de su capital son dos palabras", "Hay unas catarátas muy conocidas situadas allí"],
@@ -17,7 +17,7 @@ window.addEventListener("load", function() {
         ["Nilo", "Río africano", "Conocido por su historia", "En sus orillas hay muchos templos y restos de la civilización egipcia"],
         ["Amazonas", "Río situado en el continente americano", "A sus orillas crece la selva", "Es el río más largo y caudaloso del mundo"]
     ];
-    var historyWords = [
+    let historyWords = [
         ["Fuego", "Descubrimiento humano", "Peligroso", "Da calor"],
         ["Rueda", "Invento antiguo", "Tiene muchas utilidades", "A día de hoy es una pieza clave para el transporte"],
         ["Bombilla", "Invento del siglo XIX", "La primera patente es de Thomas Alva Edison", "Se utiliza para iluminar"],
@@ -31,7 +31,7 @@ window.addEventListener("load", function() {
         ["Roma", "Civilización de la Edad Antigua", "Se extendió por toda la costa del Mediterraneo", "El castellano proviene de su lengua"],
         ["Hunos", "Confederación de pueblos", "Provienen de Asia Central", "Los caballos son muy importantes para ellos"]
     ];
-    var artWords = [
+    let artWords = [
         ["Gioconda", "Retrato de una mujer", "Se expone en el Louvre", "Su pintor es Leonardo Da Vinci"],
         ["Meninas", "Pintura barroca", "Representa a la familia de un rey", "La obra maestra de Diego Velázquez"],
         ["David", "Escultura de marmol blanco", "Representa a un rey", "Actualmente está en la Galería de la Academia en Florencia"],
@@ -46,45 +46,81 @@ window.addEventListener("load", function() {
         ["Altamira", "Arte rupestre", "Cueva de la cornisa cantábrica", "Patrimonio Mundial de la UNESCO"]
     ];
     //Array que almacena las palabras adivinadas
-    var guessedWords = [];
+    let guessedWords = [];
     //Array de categorías
-    var category = [geographyWords, historyWords, artWords];
+    let category = [geographyWords, historyWords, artWords];
     // Palabra a averiguar
-    var word = "";
+    let word = "";
     // Nº aleatorio
-    var random;
+    let random;
     // Palabra seleccionada
-    var selectedWord = [];
+    let selectedWord = [];
     // Elemento html de la palabra
-    var wordHTML = document.getElementById("word");
+    const wordHTML = document.getElementById("word");
     // Contador de intentos
-    var count = 6;
+    let count = 6;
+    // Contador de fallos para actualizar en el winPanel
+    let errors = 0;
     // Botones del alfabeto
-    var buttons = document.getElementsByClassName('letter');
+    const buttons = document.getElementsByClassName('letter');
     // Boton de reset
-    var startBtn = document.getElementById("reload");
+    const startBtn = document.getElementById("reload");
     // Array de los listItems de las pistas
-    var clueCards = document.getElementsByClassName("clue");
+    const clueCards = document.getElementsByClassName("clue");
     // Array de los enlaces de las pistas
-    var clueTexts = document.querySelectorAll("a");
+    const clueTexts = document.querySelectorAll("a");
     //Contador de los grados que girará la carta de pista al hacer click
-    var flip = 0;
+    let flip = 0;
     //Botón de recarga
-    var reload = document.getElementById("reload");
+    const reload = document.getElementById("reload");
     //Variable que indicará si hay que recargar o no la página
-    var re = 0;
+    let re = 0;
     //Variable que indicará si se pone event listener a las letras con tilde o no
-    var aELAccents = 0;
+    let aELAccents = 0;
+
+    // Constante que almacena la modal que aparece cuando se acaba el juego
+    const winPanel = document.getElementById("modal");
+    // Constante que almacena los textos del winPanel
+    const data = document.querySelectorAll(".data");
+    // Constante que almacena el botón de jugar otra vez del winPanel
+    const againButton = document.querySelector(".reset-btn-wp");
+    // Constante que almacena el botón de volver a la home del winPanel
+    const homeButton = document.querySelector(".home-btn");
 
     // ------------ FUNCIONES ------------
 
+    //Función que pintará de un color u otro la interfaz en función a la categoría escogida
+    function colour(index) {
+        if (index == 1) {
+            console.log(index);
+            for(let i = 0; i < buttons.length - 5; i++){
+                buttons[i].classList.add("history-background");
+            }
+
+            for(let i = 27; i < buttons.length; i++){
+                buttons[i].classList.add("history-color");
+                buttons[i].classList.add("history-border");
+            }
+
+        } else if (index == 2) {
+            for(let i = 0; i < buttons.length - 5; i++){
+                buttons[i].classList.add("art-background");
+            }
+
+            for(let i = 27; i < buttons.length; i++){
+                buttons[i].classList.add("art-color");
+                buttons[i].classList.add("art-border");
+            }
+        }
+    }
+
     //Seleccionar array de palabras en función a la categoría seleccionada previamente
     function selectWords() {
-        if (localStorage.getItem('index') == 0) {
+        if (localStorage.getItem('categoryIndex') == 0) {
             return geographyWords;
-        } else if (localStorage.getItem('index') == 1) {
+        } else if (localStorage.getItem('categoryIndex') == 1) {
             return historyWords;
-        } else if (localStorage.getItem('index') == 2) {
+        } else if (localStorage.getItem('categoryIndex') == 2) {
             return artWords;
         }
     }
@@ -180,6 +216,7 @@ window.addEventListener("load", function() {
             h3.className += "press-message green fade-in animation";
         } else { // Si no existe la letra en la palabra a adivinar
             b.style.color = "rgba(255, 0, 0, 0.6)";
+            errors++;
             count--;
             document.getElementById("opportunities").innerHTML = count;
             h3.innerHTML = "Fallo!";
@@ -205,23 +242,42 @@ window.addEventListener("load", function() {
     function changeTextClueOne(words) {
         clueTexts[0].innerHTML = words[random][1];
     }
+    
 
     // Comprueba si ha finalizado
     function checkEnd(words) {
-        if (selectedWord.indexOf("_") == -1) {
-            document.getElementById("final-img").src = "";
+        if (selectedWord.indexOf("_") == -1) {            
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].disabled = true;
             }
             guessedWords.push(words.splice(random, 1));
+            right(); 
 
         } else if (count == 0) {
-            document.getElementById("final-img").src = "";
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].disabled = true;
             }
+            wrong();
         }
     }
+
+    //Función que se invocará cuando el usuario acierte la palabra y actualizará los datos y colores en el winPanel
+    function right(){
+        data[0].innerHTML = "¡¡¡ Enhorabuena !!!;"
+        data[1].innerHTML = "Has acertado la palabra";
+        data[2].innerHTML = errors;
+        for(let i = 0; i < data.length; i++){
+            data[i].classList.add("")
+        }
+        winPanel.style.display = "block";
+        winPanel.style.zIndex = "99";
+    }
+
+    //Función que se invocará cuando el usuario no acierte la palabra
+    function wrong(){
+        winPanel.style.display = "block";
+    }
+
     // Iniciar juego
     function start(words) {
         if (re == 1) { //Si se ha pulsado el botón de recarga del menú del juego
@@ -257,17 +313,19 @@ window.addEventListener("load", function() {
                 words.push(guessedWords[i]);
             }
         }
+        console.log(localStorage.getItem("categoryIndex"));
         generateWord(selectWords());
         drawDashes(word.length);
-        generateABC("a", "z");
+        generateABC("a", "z");        
+        colour(localStorage.getItem("categoryIndex"));
         addEvList(selectWords());
         changeTextClueOne(selectWords());
     }
 
 
     //--------------PROGRAMA--------------
-
     start(selectWords());
+    console.log(buttons);
     reload.addEventListener("click", function(event) {
         event.preventDefault();
         re = 1;

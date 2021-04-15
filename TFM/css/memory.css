@@ -142,7 +142,7 @@ i {
 }
 
 .card .text.flip.right {
-    background-color: #30f260;
+    background-color: #30f260 !important;
 }
 
 @keyframes right {
@@ -196,4 +196,37 @@ i {
     background-color: #F2F230;
     font-family: 'Orbitron', sans-serif;
     font-weight: 700;
+    border-radius: 10px;
 }
+
+.geography-color{
+    color: #00A676 !important;
+}
+
+.geography-background{
+    background-color: #00A676 !important;
+}
+
+.geography-border{
+    border: 5px solid #00A676 !important;
+}
+
+.art-color{
+    color: #801A86 !important;
+}
+
+.art-background{
+    background-color: #801A86 !important;
+}
+.art-border{
+    border: 5px solid #801A86 !important;
+}
+
+.art-background-2{
+    background-color: #d9aaff !important;
+}
+
+.geography-background-2{
+    background-color: #dafff1 !important;
+}
+

@@ -1,4 +1,4 @@
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
     'use strict'
     // Array de cartas según la categoría escogida
     const geographyCards = [
@@ -130,6 +130,16 @@ window.addEventListener("load", function() {
             divCard.appendChild(divCardInfo);
             //Emparentar el enlace de la carta con el div que las contiene todas
             cards.appendChild(divCard);
+            //Dependiendo de la categoría seleccionada el dorso de las cartas y el texto tendrán un fondo u otro
+            if (localStorage.getItem('categoryIndex') == 0) {
+                divCardInfo.style.backgroundImage = `url("./img/Fondo_Cartas_Geografia.png")`;
+                cardText.style.backgroundColor = "#00A676";
+            } else if (localStorage.getItem('categoryIndex') == 1) {
+                divCardInfo.style.backgroundImage = `url("./img/Fondo_Cartas_Historia.png")`;
+            } else if (localStorage.getItem('categoryIndex') == 2) {
+                divCardInfo.style.backgroundImage = `url("./img/Fondo_Cartas_Arte.png")`;
+                cardText.style.backgroundColor = "#801A86";
+            }
         }
     }
 
@@ -141,18 +151,42 @@ window.addEventListener("load", function() {
         }
     }
 
+    //Función que pintará de un color u otro la interfaz en función a la categoría escogida
+    function colour(index) {
+        if (index == 0) {
+            cards.classList.add("geography-background-2");
+            movesCounter.classList.add("geography-color");
+            timerCount.classList.add("geography-color");
+            for (let i = 0; i < stars.length; i++) {
+                stars[i].firstChild.classList.add("geography-color");
+            }
+            resetButton.firstChild.classList.add("geography-color");
+            winPanel.classList.add("geography-border");
+        } else if (index == 2) {
+            cards.classList.add("art-background-2");
+            movesCounter.classList.add("art-color");
+            timerCount.classList.add("art-color");
+            for (let i = 0; i < stars.length; i++) {
+                stars[i].firstChild.classList.add("art-color");
+            }
+            resetButton.firstChild.classList.add("art-color");
+            winPanel.classList.add("art-border");
+        }
+    }
+
     //Función que contabiliza los movimientos
     function movesCount() {
         // Aumentar los movimientos por cada pareja de cartas pulsada
         moves++;
         // Actualizar el innerHTML
         movesCounter.innerHTML = moves;
+        console.log(moves);
     }
 
     //Función que actualiza el cronometro en el HTML, será  invocada cuando el usuario haga el primer click en una carta
     function timeCount() {
         // setInterval hace que se repita una vez por cada intervalo de tiempo transcurrido
-        time = setInterval(function() {
+        time = setInterval(function () {
             totalSeconds++;
             seconds++;
             if (seconds === 60) {
@@ -258,7 +292,7 @@ window.addEventListener("load", function() {
     //Función que se invocará en caso de que se acierte la pareja de cartas seleccionada
     function right() {
         // Esperamos unos milisegundos y le asignamos la clase correcto a los elementos HTML correspondientes
-        setTimeout(function() {
+        setTimeout(function () {
             fliped[0].parentNode.classList.add("right");
             fliped[1].parentNode.classList.add("right");
             fliped[0].lastChild.classList.add("right");
@@ -268,20 +302,19 @@ window.addEventListener("load", function() {
             console.log(matched);
             // Volvemos a habilitar el resto de cartas
             document.body.style.pointerEvents = "auto";
-            // Comprobamos si el usuario ha acertado los 6 pares de cartas
-            winGame();
             // Vaciamos el array de cartas volteadas
             fliped = [];
-
             movesCount();
             starsCounter();
+            // Comprobamos si el usuario ha acertado los 6 pares de cartas
+            winGame();
         }, 600);
     }
 
     //Función que se invocará en caso de que se falle la pareja de cartas seleccionada
     function wrong() {
         // Esperamos unos milisegundos
-        setTimeout(function() {
+        setTimeout(function () {
             // Quitamos la clase flip de las img, textos y enlaces correspondientes
             fliped[0].firstChild.classList.remove("flip");
             fliped[1].firstChild.classList.remove("flip");
@@ -293,9 +326,10 @@ window.addEventListener("load", function() {
             document.body.style.pointerEvents = "auto";
             // Vaciamos el array de cartas volteadas
             fliped = [];
+            // Incrementamos los contadores de movimientos
+            movesCount();
         }, 700);
-        // Incrementamos los contadores de movimientos
-        movesCount();
+
     }
 
     //Función que comprueba si se han acertado todas las parejas
@@ -311,7 +345,7 @@ window.addEventListener("load", function() {
     function addEvLiCards() {
         let aCards = document.querySelectorAll(".card");
         for (let i = 0; i < aCards.length; i++) {
-            aCards[i].addEventListener("click", function(event) {
+            aCards[i].addEventListener("click", function (event) {
                 event.preventDefault();
                 //Iniciamos el cronómetro al hacer click la primera vez en una carta
                 if (timeStart === false) {
@@ -383,6 +417,7 @@ window.addEventListener("load", function() {
         // Vaciar el mazo
         resetCardsPanel();
         // Empezar el juego de nuevo
+        colour(localStorage.getItem("categoryIndex"));
         createCards(selectWords());
         addEvLiCards();
     }
@@ -391,7 +426,7 @@ window.addEventListener("load", function() {
         // Constante que almacena los párrafos de los datos 
         const data = document.querySelectorAll(".data");
         // Constante que almacena las estrellas de la modal
-        const wpStars = document.querySelectorAll(".win-panel i");
+        const wpStars = document.querySelectorAll(".win-panel i");        
 
         // Cambiamos los valores de los spans del tiempo y los movimientos en función a los datos conseguidos al acabar el juego
         if (minutes < 10) {
@@ -407,6 +442,7 @@ window.addEventListener("load", function() {
                 data[0].innerHTML = `${minutes}:${seconds}`;
             }
         }
+        console.log(moves);
         data[1].innerHTML = moves;
 
         //Cambiamos los iconos de las estrellas en función a la puntuación obtenida
@@ -467,27 +503,53 @@ window.addEventListener("load", function() {
                 console.log("Error en 467");
                 break;
         }
+
+        //Cambiamos el color de los textos en función a la categoría
+        if (localStorage.getItem("categoryIndex") == 0) {            
+            for (let i = 0; i < data.length; i++){
+                data[i].classList.add("geography-color");
+            }
+            for (let i = 0; i < wpStars.length; i++){
+                wpStars[i].classList.add("geography-color");
+            }            
+            againButton.classList.add("geography-background");
+            homeButton.classList.add("geography-background");
+        } else if (localStorage.getItem("categoryIndex") == 2) {
+            for (let i = 0; i < data.length; i++){
+                data[i].classList.add("art-color");
+            }
+            for (let i = 0; i < wpStars.length; i++){
+                wpStars[i].classList.add("art-color");
+            }            
+            againButton.classList.add("art-background");
+            homeButton.classList.add("art-background");
+        }
     }
 
 
     // *********** PROGRAMA ****************
 
+    colour(localStorage.getItem("categoryIndex"));
     createCards(selectWords());
     addEvLiCards();
-    resetButton.addEventListener('click', function(event) {
+    resetButton.addEventListener('click', function (event) {
         event.preventDefault();
         resetGame();
     });
 
-    againButton.addEventListener('click', function(event) {
+    againButton.addEventListener('click', function (event) {
         winPanel.style.display = "none";
         resetGame();
+        history.pushState(null, "", "category-selection.html");
+        location.reload();
+        localStorage.setItem("gameIndex", "2");
     });
 
-    homeButton.addEventListener('click', function(event) {
+    homeButton.addEventListener('click', function (event) {
         winPanel.style.display = "none";
         resetGame();
         history.pushState(null, "", "index.html");
+        location.reload();
     });
 
 

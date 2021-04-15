@@ -20,8 +20,6 @@
 
     <div class="main-container">
 
-        <h1 class="title">Juego del ahorcado</h1>
-
         <div class="menu-bar">
             <!-- MENÚ DE PISTAS INTERACTIVAS -->
             <ul class="clues">
@@ -76,10 +74,21 @@
 
         </div>
 
+        <!-- Modal que saldrá cuando se acabe el juego -->
+        <section class="win-panel">
+            <div id="modal" class="modal">
+                <div class="wpanel-content">
+                    <h2 class="data">¡¡¡ Enhorabuena !!!</h2>
+                    <p class="data">Has acertado la palabra</p>
+                    <p>Fallos : <span class="data"></span></p>
+                    <button class="reset-btn-wp">Volver a jugar</button>
+                    <button class="home-btn">Jugar a otra cosa</button>
+                </div>
+            </div>
+        </section>
+
     </div>
 
-    <!-- IMAGEN, SALDRÁ UNA VEZ ACABADO EL JUEGO E INDICARÁ SI SE HA GANADO O PERDIDO -->
-    <img id="final-img"></img>
 
     <script src="js/ahorcado.js"></script>
 
