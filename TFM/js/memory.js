@@ -1,7 +1,7 @@
-window.addEventListener("load", function () {
+window.addEventListener("load", function() {
     'use strict'
-    // Array de cartas según la categoría escogida
-    const geographyCards = [
+    // Array de cartas según la categoría escogida y el dispositivo
+    const geographyCardsPC = [
         ["Madrid", "Madrid", "Himalaya", "Himalaya", "Argentina", "Argentina",
             "Cantábrico", "Cantábrico", "Teide", "Teide", "Nilo", "Nilo"
         ],
@@ -9,7 +9,7 @@ window.addEventListener("load", function () {
             "Báltico", "Báltico", "Andes", "Andes", "Amazonas", "Amazonas"
         ]
     ];
-    const historyCards = [
+    const historyCardsPC = [
         ["Fuego", "Fuego", "Bombilla", "Bombilla", "Napoleón", "Napoleón",
             "Malinche", "Malinche", "Egipto", "Egipto", "Roma", "Roma"
         ],
@@ -17,13 +17,29 @@ window.addEventListener("load", function () {
             "Cleopatra", "Cleopatra", "Sumeria", "Sumeria", "Hunos", "Hunos"
         ]
     ];
-    const artCards = [
+    const artCardsPC = [
         ["Gioconda", "Gioconda", "David", "David", "Partenon", "Partenon",
             "Prado", "Prado", "Altamira", "Altamira", "Alhambra", "Alhambra"
         ],
         ["Meninas", "Meninas", "Guernica", "Guernica", "Stonehenge", "Stonehenge",
             "Pirámides", "Pirámides", "Coliseo", "Coliseo", "Guggenheim", "Guggenheim"
         ]
+    ];
+
+    const geographyCardsMobile = [
+        ["Madrid", "Madrid", "Himalaya", "Himalaya", "Argentina", "Argentina", "Cantábrico", "Cantábrico"],
+        ["Teide", "Teide", "Nilo", "Nilo", "Alemania", "Alemania", "Atenas", "Atenas", ],
+        ["Vesubio", "Vesubio", "Báltico", "Báltico", "Andes", "Andes", "Amazonas", "Amazonas"]
+    ];
+    const historyCardsMobile = [
+        ["Fuego", "Fuego", "Bombilla", "Bombilla", "Napoleón", "Napoleón", "Malinche", "Malinche"],
+        ["Egipto", "Egipto", "Roma", "Roma", "Rueda", "Rueda", "Imprenta", "Imprenta"],
+        ["Colón", "Colón", "Cleopatra", "Cleopatra", "Sumeria", "Sumeria", "Hunos", "Hunos"]
+    ];
+    const artCardsMobile = [
+        ["Gioconda", "Gioconda", "David", "David", "Partenon", "Partenon", "Prado", "Prado"],
+        ["Altamira", "Altamira", "Alhambra", "Alhambra", "Meninas", "Meninas", "Guernica", "Guernica"],
+        ["Stonehenge", "Stonehenge", "Pirámides", "Pirámides", "Coliseo", "Coliseo", "Guggenheim", "Guggenheim"]
     ];
 
     // Array que guarda el <div> que contiene las cartas
@@ -57,6 +73,11 @@ window.addEventListener("load", function () {
     // Variables booleana que determinará si se empezó o no a jugar en función a si se hace click en una carta
     let timeStart = false;
 
+    //Variable que almacenará el botón de pantalla completa
+    const fullScreenBtn = document.querySelector(".full-screen-button");
+    //Variable que determinará si se pone o se quita la pantalla completa
+    let isFullScreen = false;
+
     // Constante que almacena la modal que aparece cuando se acaba el juego
     const winPanel = document.getElementById("modal");
     // Constante que almacena el botón de jugar otra vez del winPanel
@@ -64,15 +85,36 @@ window.addEventListener("load", function () {
     // Constante que almacena el botón de volver a la home del winPanel
     const homeButton = document.querySelector(".home-btn");
 
-    console.log(localStorage.getItem('categoryIndex'));
+    // Variable que indicará el dispositivo en el que se visualiza la web
+    let device = "PC";
+
+    //Función que indica el dispositivo en elq ue se está visualizndo la web
+    function whatDevice() {
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            device = "Mobile";
+        }
+    }
+
     //Seleccionar array de cartas en función a la categoría seleccionada previamente
     function selectWords() {
         if (localStorage.getItem('categoryIndex') == 0) {
-            return geographyCards[Math.floor(Math.random() * 2)];
+            if (device === "PC" || device === "Tablet") {
+                return geographyCardsPC[Math.floor(Math.random() * 2)];
+            } else if (device === "Mobile") {
+                return geographyCardsMobile[Math.floor(Math.random() * 3)];
+            }
         } else if (localStorage.getItem('categoryIndex') == 1) {
-            return historyCards[Math.floor(Math.random() * 2)];
+            if (device === "PC" || device === "Tablet") {
+                return historyCardsPC[Math.floor(Math.random() * 2)];
+            } else if (device === "Mobile") {
+                return historyCardsMobile[Math.floor(Math.random() * 3)];
+            }
         } else if (localStorage.getItem('categoryIndex') == 2) {
-            return artCards[Math.floor(Math.random() * 2)];
+            if (device === "PC" || device === "Tablet") {
+                return artCardsPC[Math.floor(Math.random() * 2)];
+            } else if (device === "Mobile") {
+                return artCardsMobile[Math.floor(Math.random() * 3)];
+            }
         }
     }
 
@@ -134,6 +176,7 @@ window.addEventListener("load", function () {
             if (localStorage.getItem('categoryIndex') == 0) {
                 divCardInfo.style.backgroundImage = `url("./img/Fondo_Cartas_Geografia.png")`;
                 cardText.style.backgroundColor = "#00A676";
+                fullScreenBtn.style.backgroundColor = "00A676";
             } else if (localStorage.getItem('categoryIndex') == 1) {
                 divCardInfo.style.backgroundImage = `url("./img/Fondo_Cartas_Historia.png")`;
             } else if (localStorage.getItem('categoryIndex') == 2) {
@@ -160,6 +203,7 @@ window.addEventListener("load", function () {
             for (let i = 0; i < stars.length; i++) {
                 stars[i].firstChild.classList.add("geography-color");
             }
+            fullScreenBtn.classList.add("geography-background");
             resetButton.firstChild.classList.add("geography-color");
             winPanel.classList.add("geography-border");
         } else if (index == 2) {
@@ -169,6 +213,7 @@ window.addEventListener("load", function () {
             for (let i = 0; i < stars.length; i++) {
                 stars[i].firstChild.classList.add("art-color");
             }
+            fullScreenBtn.classList.add("art-background");
             resetButton.firstChild.classList.add("art-color");
             winPanel.classList.add("art-border");
         }
@@ -186,7 +231,7 @@ window.addEventListener("load", function () {
     //Función que actualiza el cronometro en el HTML, será  invocada cuando el usuario haga el primer click en una carta
     function timeCount() {
         // setInterval hace que se repita una vez por cada intervalo de tiempo transcurrido
-        time = setInterval(function () {
+        time = setInterval(function() {
             totalSeconds++;
             seconds++;
             if (seconds === 60) {
@@ -292,7 +337,7 @@ window.addEventListener("load", function () {
     //Función que se invocará en caso de que se acierte la pareja de cartas seleccionada
     function right() {
         // Esperamos unos milisegundos y le asignamos la clase correcto a los elementos HTML correspondientes
-        setTimeout(function () {
+        setTimeout(function() {
             fliped[0].parentNode.classList.add("right");
             fliped[1].parentNode.classList.add("right");
             fliped[0].lastChild.classList.add("right");
@@ -314,7 +359,7 @@ window.addEventListener("load", function () {
     //Función que se invocará en caso de que se falle la pareja de cartas seleccionada
     function wrong() {
         // Esperamos unos milisegundos
-        setTimeout(function () {
+        setTimeout(function() {
             // Quitamos la clase flip de las img, textos y enlaces correspondientes
             fliped[0].firstChild.classList.remove("flip");
             fliped[1].firstChild.classList.remove("flip");
@@ -345,7 +390,7 @@ window.addEventListener("load", function () {
     function addEvLiCards() {
         let aCards = document.querySelectorAll(".card");
         for (let i = 0; i < aCards.length; i++) {
-            aCards[i].addEventListener("click", function (event) {
+            aCards[i].addEventListener("click", function(event) {
                 event.preventDefault();
                 //Iniciamos el cronómetro al hacer click la primera vez en una carta
                 if (timeStart === false) {
@@ -382,6 +427,32 @@ window.addEventListener("load", function () {
 
             })
         }
+    }
+
+    //Función que se invocará cuando se pulse el botón de pantalla completa
+    function fullscreen(button) {
+        if (!isFullScreen) {
+            isFullScreen = true;
+            if (button.requestFullscreen) {
+                button.requestFullscreen();
+            } else if (button.mozRequestFullScreen) {
+                button.mozRequestFullScreen();
+            } else if (button.webkitRequestFullscreen) {
+                button.webkitRequestFullscreen();
+            } else if (button.msRequestFullscreen) {
+                button.msRequestFullscreen();
+            }
+        } else {
+            isFullScreen = false;
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+        }
+
     }
 
     //Función que resetea el juego
@@ -426,7 +497,7 @@ window.addEventListener("load", function () {
         // Constante que almacena los párrafos de los datos 
         const data = document.querySelectorAll(".data");
         // Constante que almacena las estrellas de la modal
-        const wpStars = document.querySelectorAll(".win-panel i");        
+        const wpStars = document.querySelectorAll(".win-panel i");
 
         // Cambiamos los valores de los spans del tiempo y los movimientos en función a los datos conseguidos al acabar el juego
         if (minutes < 10) {
@@ -505,22 +576,22 @@ window.addEventListener("load", function () {
         }
 
         //Cambiamos el color de los textos en función a la categoría
-        if (localStorage.getItem("categoryIndex") == 0) {            
-            for (let i = 0; i < data.length; i++){
+        if (localStorage.getItem("categoryIndex") == 0) {
+            for (let i = 0; i < data.length; i++) {
                 data[i].classList.add("geography-color");
             }
-            for (let i = 0; i < wpStars.length; i++){
+            for (let i = 0; i < wpStars.length; i++) {
                 wpStars[i].classList.add("geography-color");
-            }            
+            }
             againButton.classList.add("geography-background");
             homeButton.classList.add("geography-background");
         } else if (localStorage.getItem("categoryIndex") == 2) {
-            for (let i = 0; i < data.length; i++){
+            for (let i = 0; i < data.length; i++) {
                 data[i].classList.add("art-color");
             }
-            for (let i = 0; i < wpStars.length; i++){
+            for (let i = 0; i < wpStars.length; i++) {
                 wpStars[i].classList.add("art-color");
-            }            
+            }
             againButton.classList.add("art-background");
             homeButton.classList.add("art-background");
         }
@@ -532,12 +603,14 @@ window.addEventListener("load", function () {
     colour(localStorage.getItem("categoryIndex"));
     createCards(selectWords());
     addEvLiCards();
-    resetButton.addEventListener('click', function (event) {
+    fullScreenBtn.addEventListener("click", function() { fullscreen(document.querySelector("body")) });
+
+    resetButton.addEventListener('click', function(event) {
         event.preventDefault();
         resetGame();
     });
 
-    againButton.addEventListener('click', function (event) {
+    againButton.addEventListener('click', function(event) {
         winPanel.style.display = "none";
         resetGame();
         history.pushState(null, "", "category-selection.html");
@@ -545,7 +618,7 @@ window.addEventListener("load", function () {
         localStorage.setItem("gameIndex", "2");
     });
 
-    homeButton.addEventListener('click', function (event) {
+    homeButton.addEventListener('click', function(event) {
         winPanel.style.display = "none";
         resetGame();
         history.pushState(null, "", "index.html");

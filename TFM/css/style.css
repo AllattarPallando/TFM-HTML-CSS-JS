@@ -38,7 +38,7 @@ h1,
 h2 {
     font-weight: 700;
     color: #fff;
-    text-align: center;
+    text-align: start;
     text-shadow: 1.7px 1.7px #000;
 }
 
@@ -82,8 +82,8 @@ nav li:first-child a {
 }
 
 nav li:nth-child(2) a {
-    /*background:url("../img/azul.jpg") no-repeat center;
-    background-size:cover;*/
+    background: url("../img/Memory-V.png") no-repeat center;
+    background-size: cover;
     color: var(--amarillo);
 }
 
@@ -176,15 +176,16 @@ nav li:last-child a {
     nav li:first-child a {
         background-position: center -465px;
     }
-    #ha .text,
-    #m .text {
-        bottom: 50%;
-        right: 10px;
-        left: 35%;
+    nav li:nth-child(2) a {
+        background: url("../img/Memory-H.png") no-repeat center;
+        background-size: contain;
+        background-color: #FEFFC0;
     }
-    #s .text {
-        right: 10px;
-        left: 35%;
+    #ha .text,
+    #m .text,
+    #c .text {
+        text-align: end;
+        left: -30px;
     }
     #g .text,
     #h .text,
@@ -210,5 +211,42 @@ nav li:last-child a {
         background-size: 25%;
         background-position: right;
         background-color: #9A75A0;
+    }
+}
+
+@media screen and (max-width:670px) {
+    nav li:first-child a {
+        background: url("../img/Fondo_Ahorcado.png") no-repeat center;
+        background-position-y: -304px;
+        background-size: 100% auto;
+    }
+    nav li:nth-child(2) a {
+        background: url("../img/Memory-H.png") no-repeat center;
+        background-size: cover;
+    }
+    h1 {
+        font-size: 1.5em;
+    }
+    h2 {
+        font-size: 1em;
+    }
+    #ha .text,
+    #m .text,
+    #c .text {
+        bottom: 10px;
+        left: -20px;
+    }
+    #g .text,
+    #h .text,
+    #a .text {
+        top: 0;
+        left: 20px;
+        font-size: 1.5em;
+        margin-top: 25px;
+    }
+    .c-button#h {
+        background-size: 20%;
+        background-position-x: 495px;
+        background-position-y: -2px;
     }
 }

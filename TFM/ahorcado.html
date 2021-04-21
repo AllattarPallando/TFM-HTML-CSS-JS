@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/ahorcado.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
 </head>
 
 <body class="ahorcado">
@@ -29,24 +30,13 @@
             </ul>
             <!-- BOTONES DE RECARGA Y VOLVER -->
             <div class="buttons">
-                <a class="a-button" id="reload"></a>
-                <a class="a-button" id="back"></a>
+                <a class="a-button" id="reload"><i class="fas fa-redo-alt"></i></a>
+                <a class="a-button" id="back"><i class="fas fa-times"></i></a>
             </div>
 
         </div>
 
         <div class="section-one">
-
-            <!-- IMÁGENES DEL AHORCADO -->
-            <picture class="gallery">
-                <img src="img/Poste.png" alt="" id="image6">
-                <img src="img/Soga.png" alt="" id="image5">
-                <img src="img/Cabeza.png" alt="" id="image4">
-                <img src="img/Cuerpo.png" alt="" id="image3">
-                <img src="img/Brazos.png" alt="" id="image2">
-                <img src="img/Capa.png" alt="" id="image1">
-                <img src="img/Muerte.png" alt="" id="image0">
-            </picture>
 
             <!-- PANEL CON BOTONES DE LETRAS Y OPORTUNIDADES RESTANTES -->
             <div class="alphabet-panel">
@@ -72,10 +62,22 @@
                 <h2 class="word" id="word"></h2>
             </div>
 
+
+            <!-- IMÁGENES DEL AHORCADO -->
+            <picture class="gallery">
+                <img class="img" srcset="img/Poste_A.png 640w, img/Poste_I.png 568w, img/Poste.png 1080w" sizes="(max-width: 640px) 640px, (max-width: 568px) 568px, 1080px" src="img/Poste.png" alt="" id="image6">
+                <img class="img" srcset="img/Soga_A.png 640w, img/Soga_I.png 568w, img/Soga.png 1080w" sizes="(max-width: 640px) 640px, (max-width: 568px) 568px, 1080px" src="img/Soga.png" alt="" id="image5">
+                <img class="img" srcset="img/Cabeza_A.png 640w, img/Cabeza_I.png 568w, img/Cabeza.png 1080w" sizes="(max-width: 640px) 640px, (max-width: 568px) 568px, 1080px" src="img/Cabeza.png" alt="" id="image4">
+                <img class="img" srcset="img/Cuerpo_A.png 640w, img/Cuerpo_I.png 568w, img/Cuerpo.png 1080w" sizes="(max-width: 640px) 640px, (max-width: 568px) 568px, 1080px" src="img/Cuerpo.png" alt="" id="image3">
+                <img class="img" srcset="img/Brazos_A.png 640w, img/Brazos_I.png 568w, img/Brazos.png 1080w" sizes="(max-width: 640px) 640px, (max-width: 568px) 568px, 1080px" src="img/Brazos.png" alt="" id="image2">
+                <img class="img" srcset="img/Capa_A.png 640w, img/Capa_I.png 568w, img/Capa.png 1080w" sizes="(max-width: 640px) 640px, (max-width: 568px) 568px, 1080px" src="img/Capa.png" alt="" id="image1">
+                <img class="img" srcset="img/Muerte_A.png 640w, img/Muerte_I.png 568w, img/Muerte.png 1080w" sizes="(max-width: 640px) 640px, (max-width: 568px) 568px, 1080px" src="img/Muerte.png" alt="" id="image0">
+            </picture>
+
         </div>
 
         <!-- Modal que saldrá cuando se acabe el juego -->
-        <section class="win-panel">
+        <section class="win-panel" id="win-panel">
             <div id="modal" class="modal">
                 <div class="wpanel-content">
                     <h2 class="data">¡¡¡ Enhorabuena !!!</h2>
@@ -86,6 +88,9 @@
                 </div>
             </div>
         </section>
+
+        <!--Botón de pantalla completa-->
+        <button class="full-screen-button" id="full-btn"><i class="fas fa-expand"></i></button>
 
     </div>
 

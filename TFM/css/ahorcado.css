@@ -1,433 +1,656 @@
-/*-------- AHORCADO --------*/
-
-
-/*Todas las medidas del contenido del body son exactas, sin contar bordes, rellenos, etc*/
-
-.ahorcado {
-    box-sizing: border-box;
-    font-family: 'Orbitron', sans-serif;
-    font-size: 100%;
-    overflow-y: hidden;
-}
-
-
-/*Ancho y posicionamiento de la sección principal*/
-
-.main-container {
-    max-width: 1080px;
-    min-height: 600px;
-    margin: 55px auto;
-    background-image: url("../img/Fondo.png");
-    background-repeat: no-repeat;
-    position: relative;
-}
-
-
-/*Quitar visibilidad al título principal*/
-
-.title {
-    visibility: hidden;
-}
-
-
-/*Maquetación del menú*/
-
-.menu-bar {
-    width: 1062px;
-    height: 92px;
-    background-image: url("../img/Menu.png");
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    z-index: 10;
-}
-
-
-/*Maquetación del panel que contiene las pistas y los botones para pedir dichas pistas o cambiar la palabra a adivinar*/
-
-.clues {
-    margin-left: 20px;
-    padding: 0 10px;
-    flex-basis: 80%;
-    list-style: none;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-/*Maquetación de cada uno de los paneles de las pistas*/
-
-.clue {
-    width: 238px;
-    height: 64px;
-    color: #000;
-    text-shadow: 1px 1px #00A676;
-    background-image: url("../img/HuecoPista.png");
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-/*Maquetación enlaces de las pistas*/
-
-.clue a {
-    text-decoration: none;
-    color: #000;
-    text-align: center;
-}
-
-
-/*Maquetación de los botones del menu*/
-
-.buttons {
-    flex-basis: 20%;
-    height: 58px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-
-/*Estilo general de los botones del menu*/
-
-.a-button,
-button {
-    width: 62px;
-    height: 58px;
-    border-radius: 10px;
-    background-position: center;
-    z-index: 2;
-}
-
-
-/*Fondo de cada botón en concreto*/
-
-.a-button#reload {
-    margin: 0 15px;
-    background-image: url("../img/Recargar.png");
-}
-
-.a-button#back {
-    margin: 0 15px;
-    background-image: url("../img/Salir.png");
-}
-
-
-/*Maquetación y tamaño de la única sección de la página*/
-
-.section-one {
-    height: 100%;
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-
-/*Maquetación y tamaño del contenedor de las imágenes del ahorcado*/
-
-.gallery {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-
-/*Maquetación y opacidad de las imágenes en concreto*/
-
-#image5,
-#image4,
-#image3,
-#image2,
-#image1,
-#image0 {
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    transition: opacity .3s ease;
-}
-
-
-/*Ordenar por capas las imágenes*/
-
-#image6,
-#image4,
-#image3,
-#image2,
-#image0 {
-    z-index: 1;
-}
-
-
-/*Etiqueta para poner opacidad a la imágen correspondiente en cada caso*/
-
-.fade-in {
-    opacity: 1 !important;
-}
-
-
-/*Etiqueta para quitar opacidad a la imágen correspondiente en cada caso*/
-
-.fade-out {
-    opacity: 0 !important;
-}
-
-
-/*Maquetación de los paneles de las letras*/
-
-.alphabet-panel {
-    width: 380px;
-    height: 375px;
-    position: absolute;
-    bottom: 55px;
-    right: 77px;
-}
-
-
-/*Ancho y alto del contenedor del alfabeto*/
-
-.letters {
-    width: 100%;
-    height: 80%;
-}
-
-
-/*Maquetación del contenedor de los botones del alfabeto*/
-
-.abc,
-.accents {
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-}
-
-
-/*Estilo de los botones del alfabeto*/
-
-.abc button,
-.accents button {
-    width: 45px;
-    height: 45px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.5em;
-    font-weight: 700;
-    background-color: #00A676;
-    color: #fff;
-    text-shadow: 1.2px 1.2px #000;
-    border: 2px solid #fff;
-    margin: 5px;
-}
-
-.accents button {
-    background-color: #fff;
-    color: #00A676;
-    border: 2px solid #00A676;
-}
-
-
-/*Etilo del texto que indica las oportunidades retsantes para acertar la palabra*/
-
-.opportunities h3 {
-    font-size: 1.4em;
-    text-align: center;
-    text-shadow: 1.5px 1.5px #00A676;
-    margin: 0px;
-    margin-bottom: 20px;
-}
-
-
-/*El número de oportunidades lleva otro estilo*/
-
-span#opportunities {
-    color: #00A676;
-    text-shadow: 1.5px 1.5px #000;
-}
-
-
-/*Maquetación del contenedor del mensaje al pulsar una letra*/
-
-.msg-container {
-    height: 50px;
-}
-
-
-/*Maquetación del texto al pulsar una letra*/
-
-.msg-container h3 {
-    margin: 0;
-    position: absolute;
-    bottom: 75px;
-    left: 375px;
-    font-size: 2em;
-    transform: scale(0);
-    text-shadow: 1px 1px #000;
-}
-
-
-/*Animación del mensaje de correcto o incorrecto*/
-
-.animation {
-    animation: zoomInOut 1s ease;
-}
-
-
-/*En caso de fallar el testo será rojo*/
-
-.red {
-    color: rgb(255, 0, 0);
-}
-
-
-/*En caso de acertar el texto será verde*/
-
-.green {
-    color: rgb(0, 153, 0);
-}
-
-
-/*Maquetación del contenedor de la palabra a adivinar*/
-
-.word-container {
-    width: 490px;
-    height: 60px;
-    background-image: url("../img/Palabra.png");
-    position: absolute;
-    bottom: 5px;
-    left: 35px;
-}
-
-
-/*Etiqueta para hacer aparecer o desaparecer los elementos*/
-
-.zoom-in {
-    transform: scale(1) !important;
-}
-
-
-/*Keyframes de la animación para el texto cuando se pulse la letra*/
-
-@keyframes zoomInOut {
-    0% {
-        transform: scale(0);
-    }
-    50% {
-        transform: scale(1);
-    }
-    70% {
-        transform: scale(1);
-    }
-    100% {
-        transform: scale(0);
-    }
-}
-
-
-/*Estilo y maquetación de los espacios para la palabra escogida*/
-
-h2#word {
-    margin: 0;
-    padding-top: 8px;
-    font-size: 2em;
-    color: #000;
-    text-shadow: 1.2px 1.2px #00A676;
-    text-transform: uppercase;
-    letter-spacing: 6px;
-    text-align: center;
-}
-
-
-/*Maquetación de la imagen que sale al finalizar el juego*/
-
-.final-img {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    opacity: 0;
-}
-
-/*Maquetación y estilos del panel que contiene la modal que saldrá una vez acertada la palabra*/
-.win-panel {
-    position: absolute;
-    width: 100%;
-    height:100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/*Maquetación y estilos de la modal*/
-.modal{
-    display: none;
-    width:70%;
-    height: 70%;
-    background-color:#000;    
-    border-radius:20px;
-    border:5px solid #F2F230;
-    box-shadow: 1px 1px 5px #000;
-}
-
-/*Maquetación y estilos del contenido de la modal*/
-.wpanel-content{
-    width:100%;
-    height:100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-}
-
-.wpanel-content h2, .wpanel-content p, .reset-btn-wp{
-    margin-bottom:20px;
-}
-
-.data{
-    color: #00A676;
-}
-
-.wpanel-content button{
-    width: 15%;
-    padding: 10px;
-    background-color: #00A676;
-    font-family: 'Orbitron', sans-serif;
-    font-weight: 700;
-    border-radius: 10px;
-}
-
-.history-color{
-    color: #F2F230 !important;
-}
-
-.history-background{
-    background-color: #F2F230 !important;
-}
-
-.history-border{
-    border: 2px solid #F2F230 !important;
-}
-
-.art-color{
-    color: #801A86 !important;
-}
-
-.art-background{
-    background-color: #801A86 !important;
-}
-.art-border{
-    border: 2px solid #801A86 !important;
-}
+ /*-------- AHORCADO --------*/
+ /*Normalizar*/
+ 
+ * {
+     margin: 0;
+     padding: 0;
+ }
+ /*MobileFirst en formato horizontal*/
+ 
+ @media (orientation: landscape) {
+     html {
+         overflow-y: hidden;
+     }
+     /*Estilo de fuente y fondo del body*/
+     .ahorcado {
+         font-family: 'Orbitron', sans-serif;
+         font-size: 100%;
+         height: 100vh;
+         background: url("../img/Fondo_I.png") no-repeat;
+         background-size: 100% 100%;
+         overflow-y: hidden;
+     }
+     /*Medidas y posición del contenedor principal*/
+     .main-container {
+         width: 100%;
+         height: 100%;
+         position: relative;
+         top: 0;
+         overflow: hidden;
+     }
+     /*Estilo y maquetación de la barra del menú superior*/
+     .menu-bar {
+         width: 96%;
+         height: 50px;
+         background: url("../img/Menu_I.png") no-repeat;
+         background-size: 100% auto;
+         margin: 0 auto;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+         position: relative;
+         top: 5px;
+         z-index: 9;
+     }
+     /*Maquetación y estilo del panel de pistas*/
+     .clues {
+         flex-basis: 85%;
+         list-style: none;
+         height: 33px;
+         margin-bottom: 5.5px;
+         display: flex;
+         justify-content: space-between;
+         align-items: center;
+     }
+     /*Maquetación y estilo de los paneles de pista*/
+     .clue {
+         flex-basis: 33.3333%;
+         margin-left: 10px;
+         height: 33px;
+         font-size: 0.5em;
+         background: url("../img/HuecoPista_I.png") no-repeat center center;
+         background-size: 100% auto;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+     }
+     /*Estilo del texto de las pistas*/
+     .clue-text {
+         text-decoration: none;
+         color: #000;
+         text-align: center;
+         padding: 5px;
+     }
+     /*Maquetación del div que contiene los botones del menú*/
+     .buttons {
+         flex-basis: 15%;
+         height: 80%;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+     }
+     /*Estilo general de los botones*/
+     .a-button {
+         margin-bottom: 5.5px;
+         color: #fff;
+         text-shadow: 1.5px 1.5px #000;
+         background-color: #00A676;
+         border: 2px solid #fff;
+     }
+     .a-button,
+     button {
+         width: 30px;
+         height: 30px;
+         border-radius: 5px;
+         text-align: center;
+     }
+     /*Estilo botón de recarga*/
+     .a-button#reload {
+         margin-right: 5px;
+     }
+     #reload {
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         font-size: 1.2em;
+     }
+     /*Estilo del botón de cerrar*/
+     #back {
+         font-size: 1.7em;
+     }
+     /*Medidas de la única sección de la página*/
+     .section-one {
+         width: 100%;
+         height: 100%;
+     }
+     /*Maquetación panel de letras*/
+     .alphabet-panel {
+         width: 278px;
+         height: 311px;
+         background: url("../img/Fondo_abc_I.png") no-repeat center center;
+         background-size: 100% auto;
+         position: absolute;
+         top: -5px;
+         right: 5px;
+         z-index: 1;
+     }
+     /*Etilo del div que contiene el texto que indica las oportunidades restantes*/
+     .opportunities {
+         margin-top: 75px;
+     }
+     /*Etilo del texto que indica las oportunidades restantes*/
+     .opportunities h3 {
+         margin-left: 5px;
+         text-align: center;
+         font-size: 0.85em;
+     }
+     /*El número de oportunidades lleva otro estilo*/
+     span#opportunities {
+         color: #00A676;
+         text-shadow: 1px 1px #000;
+     }
+     /*Maquetación de los contenedores de las letras*/
+     .abc {
+         margin-top: 8px;
+         margin-left: 10px;
+         padding: 0 30px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         flex-wrap: wrap;
+     }
+     .accents {
+         margin-left: 10px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+     }
+     /*Estilo de los botones del alfabeto*/
+     .abc button,
+     .accents button {
+         width: 24px;
+         height: 24px;
+         font-size: 0.8em;
+         margin: 4px;
+         padding: 0;
+         text-shadow: 1.1px 1.1px #000;
+         font-family: 'Montserrat', sans-serif;
+         font-weight: 700;
+         background-color: #00A676;
+         color: #fff;
+         border: 2px solid #fff;
+         margin: 5px;
+     }
+     .accents button {
+         background-color: #fff;
+         color: #00A676;
+         border: 2px solid #00A676;
+     }
+     /*Maquetación y tamaño del contenedor de las imágenes del ahorcado*/
+     .gallery {
+         width: 100%;
+         height: 100%;
+         position: absolute;
+         top: 0;
+         z-index: -8;
+     }
+     /*Maquetación y opacidad de las imágenes en concreto*/
+     #image5,
+     #image4,
+     #image3,
+     #image2,
+     #image1,
+     #image0 {
+         position: absolute;
+         top: 0;
+         left: 0;
+         opacity: 0;
+         transition: opacity .3s ease;
+     }
+     /*Ordenar por capas las imágenes*/
+     #image1,
+     #image5 {
+         z-index: -9;
+     }
+     /*Esilo y maquetación del texto que sale cuendo pulsas una letra*/
+     .msg-container h3 {
+         position: absolute;
+         bottom: 80px;
+         left: 165px;
+         font-size: 1.5em;
+         text-shadow: 1px 1px #000;
+         transform: scale(0);
+     }
+     /*Estilo y maquetación del contenedor de la palabra a adivinar*/
+     .word-container {
+         width: 258px;
+         height: 30px;
+         background: url("../img/Palabra_I.png") no-repeat;
+         background-size: 100% auto;
+         position: absolute;
+         top: 87%;
+         left: 5%;
+     }
+     /*Estilo del texto de la palabra a adivinar*/
+     h2#word {
+         margin: 0;
+         padding-top: 2px;
+         font-size: 1.2em;
+         color: #000;
+         text-transform: uppercase;
+         letter-spacing: 6px;
+         text-align: center;
+     }
+     /*Maquetación y estilos del panel que contiene la modal que saldrá una vez acertada la palabra*/
+     .win-panel {
+         display: none;
+         position: absolute;
+         top: 0;
+         width: 100%;
+         height: 100%;
+         justify-content: center;
+         align-items: center;
+         z-index: 10;
+     }
+     /*Maquetación y estilos de la modal*/
+     .modal {
+         width: 70%;
+         height: 75%;
+         margin: 59px 0 auto;
+         background-color: #000;
+         border-radius: 20px;
+         border: 5px solid #00A676;
+         box-shadow: 1px 1px 5px #000;
+     }
+     /*Maquetación y estilos del contenido de la modal*/
+     .wpanel-content {
+         width: 100%;
+         height: 100%;
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         color: #fff;
+     }
+     /*Estilo de los textos y botones de la modal*/
+     .wpanel-content h2 {
+         font-size: 1.5em;
+         margin-top: 20px;
+     }
+     .wpanel-content h2,
+     .wpanel-content p,
+     .reset-btn-wp,
+     .home-btn {
+         margin-bottom: 20px;
+     }
+     .data {
+         color: #00A676;
+     }
+     .wpanel-content button {
+         width: 15%;
+         padding: 10px;
+         background-color: #00A676;
+         font-family: 'Orbitron', sans-serif;
+         font-weight: 700;
+         border-radius: 10px;
+     }
+     .wpanel-content p,
+     .reset-btn-wp {
+         font-size: 1em;
+         margin-top: 0;
+         margin-bottom: 20px;
+     }
+     .wpanel-content button {
+         width: 20%;
+         padding: 0;
+         font-size: 0.5em;
+         border-radius: 5px;
+     }
+     /*El botón de pantalla completa sólo saldrá en caso de que la pantalla mida más de 1200px*/
+     .full-screen-button {
+         display: none;
+     }
+ }
+ /*Ajustamos las imágenes al tamaño de la pantalla*/
+ 
+ @supports(object-fit: cover) {
+     .img {
+         height: 100%;
+         object-fit: cover;
+         object-position: center center;
+     }
+ }
+ /*Etiqueta para poner opacidad a la imágen correspondiente en cada caso*/
+ 
+ .fade-in {
+     opacity: 1 !important;
+ }
+ /*Etiqueta para quitar opacidad a la imágen correspondiente en cada caso*/
+ 
+ .fade-out {
+     opacity: 0 !important;
+ }
+ /*Animación del mensaje de correcto o incorrecto*/
+ 
+ .animation {
+     animation: zoomInOut 1s ease;
+ }
+ /*En caso de fallar el testo será rojo*/
+ 
+ .red {
+     color: rgb(255, 0, 0) !important;
+ }
+ 
+ .letter.red {
+     color: rgb(255, 0, 0) !important;
+ }
+ /*En caso de acertar el texto será verde*/
+ 
+ .green {
+     color: rgb(0, 153, 0) !important;
+ }
+ /*Etiqueta para hacer aparecer o desaparecer los elementos*/
+ 
+ .zoom-in {
+     transform: scale(1) !important;
+ }
+ /*Keyframes de la animación para el texto cuando se pulse la letra*/
+ 
+ @keyframes zoomInOut {
+     0% {
+         transform: scale(0);
+     }
+     50% {
+         transform: scale(1);
+     }
+     70% {
+         transform: scale(1);
+     }
+     100% {
+         transform: scale(0);
+     }
+ }
+ /*Etiquetas para indicar la categoría escogida por el usuario y pintar la interfaz del color correspondiente,
+ se pondrán en los elementos mediante JS*/
+ 
+ .history-color {
+     color: #F2F230 !important;
+ }
+ 
+ .history-background {
+     background-color: #F2F230 !important;
+ }
+ 
+ .history-border {
+     border: 2px solid #F2F230 !important;
+ }
+ 
+ .art-color {
+     color: #801A86 !important;
+ }
+ 
+ .art-background {
+     background-color: #801A86 !important;
+ }
+ 
+ .art-border {
+     border: 2px solid #801A86 !important;
+ }
+ 
+ @media (min-width: 640px) {
+     /*Estilo de fondo del body*/
+     .ahorcado {
+         background: url("../img/Fondo_A.png") no-repeat;
+         background-size: 100% 100%;
+     }
+     /*Estilo y maquetación de la barra del menú superior*/
+     .menu-bar {
+         height: 56px;
+         background: url("../img/Menu_A.png") no-repeat center center;
+         background-size: 100% auto;
+     }
+     /*Maquetación panel de letras*/
+     .alphabet-panel {
+         height: 351px;
+         background: url("../img/Fondo_abc_A.png") no-repeat center center;
+         background-size: 100% auto;
+     }
+     /*Maquetación del div que contiene el texto de las oportunidades*/
+     .opportunities {
+         margin-top: 93px;
+     }
+     /*Maquetación y estilo del testo que sale cuando se pulsa una letra*/
+     .msg-container h3 {
+         bottom: 50px;
+         left: 165px;
+         font-size: 1.5em;
+         text-shadow: 1px 1px #000;
+         transform: scale(0);
+     }
+     /*Maquetación y estilo del contenedor de la palabra a adivinar*/
+     .word-container {
+         height: 33px;
+         background: url("../img/Palabra_A.png") no-repeat;
+         background-size: 100% auto;
+     }
+ }
+ 
+ @media (min-height: 540px) and (min-width: 860px) {
+     /*Maquetación panel de letras*/
+     .alphabet-panel {
+         width: 420px;
+         height: 520px;
+         background: url("../img/Fondo_abc_T.png") no-repeat center center;
+         background-size: 100% auto;
+     }
+     /*Etilo del texto que indica las oportunidades retsantes para acertar la palabra*/
+     .alphabet-panel .opportunities h3 {
+         font-size: 1.4em;
+         margin: 0px;
+         margin-top: 155px;
+     }
+     /*Ancho y alto del contenedor del alfabeto*/
+     .letters {
+         width: 100%;
+         height: 80%;
+         padding: 20px;
+         padding-top: 0;
+     }
+     /*Maquetación panel de letras*/
+     #alphabet,
+     #b-accents {
+         padding: 0 65px 0 25px;
+     }
+     /*Estilo de los botones del alfabeto*/
+     .abc button,
+     .accents button {
+         width: 40px;
+         height: 40px;
+         font-size: 1.5em;
+     }
+     /*Maquetación del contenedor de la palabra a adivinar*/
+     .word-container {
+         width: 390px;
+         height: 50px;
+         left: 10%;
+         padding-top: 5px;
+         font-size: 1.2em;
+     }
+     /*Capa del win panel*/
+     .win-panel {
+         z-index: 10;
+     }
+     /*Maquetación y estilos del contenido de la modal*/
+     .wpanel-content {
+         width: 100%;
+         height: 100%;
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         color: #fff;
+     }
+     /*Estilo de los textos y botones del win panel*/
+     .wpanel-content h2 {
+         font-size: 2em;
+         margin-bottom: 20px;
+     }
+     .wpanel-content p {
+         font-size: 1.5em;
+         margin-bottom: 20px;
+     }
+     .wpanel-content button {
+         width: 30%;
+         margin-top: 10px;
+         font-size: 0.9em;
+     }
+ }
+ 
+ @media (min-width: 1100px) {
+     /*Estilo del body*/
+     .ahorcado {
+         width: 100vw;
+         background: none;
+     }
+     /*Ancho y posicionamiento de la sección principal*/
+     .main-container {
+         width: 1080px;
+         height: 600px;
+         margin: 3% auto;
+         background: url("../img/Fondo.png") no-repeat center center;
+         background-size: 100% 100%;
+     }
+     /*Maquetación del menú*/
+     .menu-bar {
+         width: 1062px;
+         height: 92px;
+         background: url("../img/Menu.png") no-repeat center center;
+         background-size: 100% auto;
+         top: 10px;
+         left: 0;
+     }
+     /*Maquetación de cada uno de los paneles de las pistas*/
+     .clue {
+         width: 238px;
+         height: 64px;
+         background: url("../img/HuecoPista.png") no-repeat center center;
+         background-size: 100% auto;
+         font-size: 1em;
+     }
+     /*Maquetación de los botones del menu*/
+     .buttons {
+         height: 58px;
+     }
+     /*Estilo general de los botones del juego*/
+     .a-button,
+     button {
+         width: 50px;
+         height: 50px;
+         border-radius: 10px;
+     }
+     /*Fondo de cada botón en concreto*/
+     #reload {
+         font-size: 2em;
+         margin-bottom: 5px;
+     }
+     #back {
+         font-size: 2.5em;
+         margin-bottom: 5px;
+     }
+     /*Colación por capas de la galería*/
+     .gallery {
+         z-index: 0;
+     }
+     /*Ordenar por capas las imágenes*/
+     #image1,
+     #image5 {
+         z-index: -1;
+     }
+     /*Maquetación de los paneles de las letras*/
+     .alphabet-panel {
+         width: 521px;
+         height: 585px;
+         background: url("../img/Fondo_abc_I.png") no-repeat center center;
+         background-size: 100% auto;
+     }
+     /*Etilo del texto que indica las oportunidades retsantes para acertar la palabra*/
+     .alphabet-panel .opportunities h3 {
+         font-size: 1.4em;
+         margin: 0px;
+         margin-top: 155px;
+     }
+     /*Ancho y alto del contenedor del alfabeto*/
+     .letters {
+         width: 100%;
+         height: 80%;
+         padding: 20px;
+     }
+     /*Maquetación panel de letras*/
+     #alphabet,
+     #b-accents {
+         padding: 10px 85px 0 45px;
+     }
+     /*Estilo de los botones del alfabeto*/
+     .abc button,
+     .accents button {
+         width: 45px;
+         height: 45px;
+         font-size: 1.5em;
+     }
+     /*Maquetación del texto al pulsar una letra*/
+     .msg-container h3 {
+         bottom: 75px;
+         left: 375px;
+         font-size: 2em;
+     }
+     /*Maquetación del contenedor de la palabra a adivinar*/
+     .word-container {
+         width: 490px;
+         height: 60px;
+         background: url("../img/Palabra.png") no-repeat;
+         background-size: 100% auto;
+         top: 87%;
+         left: 5%;
+     }
+     /*Estilo y maquetación de los espacios para la palabra escogida*/
+     h2#word {
+         margin: 0;
+         padding-top: 0;
+         font-size: 2em;
+     }
+     /*Capa del win panel*/
+     .win-panel {
+         z-index: 10;
+     }
+     /*Maquetación y estilos del contenido de la modal*/
+     .wpanel-content {
+         width: 100%;
+         height: 100%;
+         display: flex;
+         flex-direction: column;
+         justify-content: center;
+         align-items: center;
+         color: #fff;
+     }
+     /*Estilo de los textos y botones del win panel*/
+     .wpanel-content h2 {
+         font-size: 2em;
+         margin-bottom: 20px;
+     }
+     .wpanel-content p {
+         font-size: 1.5em;
+         margin-bottom: 20px;
+     }
+     .wpanel-content button {
+         margin-top: 10px;
+         font-size: 1em;
+     }
+ }
+ 
+ @media (min-width: 1300px) {
+     /* Maquetación y estilo de botón de pantalla completa*/
+     #full-btn {
+         display: block;
+         width: 62px;
+         height: 58px;
+         border-radius: 10px;
+         position: fixed;
+         right: 50px;
+         top: 30px;
+         font-size: 2em;
+         border: none;
+         color: #fff;
+         background-color: #00A676;
+         text-shadow: 1.5px 1.5px #000;
+     }
+ }

@@ -23,7 +23,7 @@ body {
     align-items: center;
     box-shadow: 1px 1px 5px #000;
     border-radius: 20px;
-    margin-top: 25px;
+    margin-top: 4%;
 }
 
 .mark-panel {
@@ -157,21 +157,41 @@ i {
     }
 }
 
+
+/* Maquetación y estilo de botón de pantalla completa*/
+
+.full-screen-button {
+    width: 62px;
+    height: 58px;
+    border-radius: 10px;
+    position: fixed;
+    right: 50px;
+    top: 30px;
+    font-size: 1.5em;
+    border: none;
+    background-color: #F2F230;
+    text-shadow: 1.5px 1.5px #000;
+}
+
+button.full-screen-button i.fas {
+    color: #fff !important;
+}
+
 .win-panel {
     position: absolute;
     z-index: 99;
     width: 40%;
 }
 
-.modal{
-    display: none;    
-    background-color:#000;    
-    border-radius:20px;
-    border:5px solid #F2F230;
+.modal {
+    display: none;
+    background-color: #000;
+    border-radius: 20px;
+    border: 5px solid #F2F230;
     box-shadow: 1px 1px 5px #000;
 }
 
-.wpanel-content{
+.wpanel-content {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -180,18 +200,21 @@ i {
     color: #fff;
 }
 
-.wpanel-content .rating{
+.wpanel-content .rating {
     padding: 0;
 }
-.wpanel-content h2, .wpanel-content p, .reset-btn-wp{
-    margin-bottom:20px;
+
+.wpanel-content h2,
+.wpanel-content p,
+.reset-btn-wp {
+    margin-bottom: 20px;
 }
 
-.data{
+.data {
     color: #F2F230;
 }
 
-.wpanel-content button{
+.wpanel-content button {
     padding: 10px;
     background-color: #F2F230;
     font-family: 'Orbitron', sans-serif;
@@ -199,34 +222,44 @@ i {
     border-radius: 10px;
 }
 
-.geography-color{
+.geography-color {
     color: #00A676 !important;
 }
 
-.geography-background{
+.geography-background {
     background-color: #00A676 !important;
 }
 
-.geography-border{
+.geography-border {
     border: 5px solid #00A676 !important;
 }
 
-.art-color{
+.art-color {
     color: #801A86 !important;
 }
 
-.art-background{
+.art-background {
     background-color: #801A86 !important;
 }
-.art-border{
+
+.art-border {
     border: 5px solid #801A86 !important;
 }
 
-.art-background-2{
+.art-background-2 {
     background-color: #d9aaff !important;
 }
 
-.geography-background-2{
+.geography-background-2 {
     background-color: #dafff1 !important;
 }
 
+@media screen and (max-width: 640px) {
+    .main-container {
+        width: 100%;
+        margin-top: 0;
+    }
+    .full-screen-button {
+        display: none;
+    }
+}

@@ -45,6 +45,8 @@ window.addEventListener("load", function() {
         ["Alhambra", "Monumento español", "En su momento fue un palacio", "Situado en Andalucía, España"],
         ["Altamira", "Arte rupestre", "Cueva de la cornisa cantábrica", "Patrimonio Mundial de la UNESCO"]
     ];
+    //Constante que almacena el body
+    const body = document.querySelector(".ahorcado");
     //Array que almacena las palabras adivinadas
     let guessedWords = [];
     //Array de categorías
@@ -63,8 +65,8 @@ window.addEventListener("load", function() {
     let errors = 0;
     // Botones del alfabeto
     const buttons = document.getElementsByClassName('letter');
-    // Boton de reset
-    const startBtn = document.getElementById("reload");
+    // Boton de home
+    const startBtn = document.getElementById("back");
     // Array de los listItems de las pistas
     const clueCards = document.getElementsByClassName("clue");
     // Array de los enlaces de las pistas
@@ -77,9 +79,14 @@ window.addEventListener("load", function() {
     let re = 0;
     //Variable que indicará si se pone event listener a las letras con tilde o no
     let aELAccents = 0;
+    //Variable que indicará si se pone a pantalla o completa o se quita    
+    let isFullScreen = false;
+
+    //Variable que almacenará el botón de pantalla completa
+    const fullScreenBtn = document.querySelector(".full-screen-button");
 
     // Constante que almacena la modal que aparece cuando se acaba el juego
-    const winPanel = document.getElementById("modal");
+    const winPanel = document.getElementById("win-panel");
     // Constante que almacena los textos del winPanel
     const data = document.querySelectorAll(".data");
     // Constante que almacena el botón de jugar otra vez del winPanel
@@ -92,25 +99,34 @@ window.addEventListener("load", function() {
     //Función que pintará de un color u otro la interfaz en función a la categoría escogida
     function colour(index) {
         if (index == 1) {
-            console.log(index);
-            for(let i = 0; i < buttons.length - 5; i++){
+            for (let i = 0; i < buttons.length - 5; i++) {
                 buttons[i].classList.add("history-background");
             }
 
-            for(let i = 27; i < buttons.length; i++){
+            for (let i = 27; i < buttons.length; i++) {
                 buttons[i].classList.add("history-color");
                 buttons[i].classList.add("history-border");
             }
 
+            reload.classList.add("history-background");
+            startBtn.classList.add("history-background");
+            document.getElementById("opportunities").classList.add("history-color");
+            fullScreenBtn.classList.add("history-background");
+
         } else if (index == 2) {
-            for(let i = 0; i < buttons.length - 5; i++){
+            for (let i = 0; i < buttons.length - 5; i++) {
                 buttons[i].classList.add("art-background");
             }
 
-            for(let i = 27; i < buttons.length; i++){
+            for (let i = 27; i < buttons.length; i++) {
                 buttons[i].classList.add("art-color");
                 buttons[i].classList.add("art-border");
             }
+
+            reload.classList.add("art-background");
+            startBtn.classList.add("art-background");
+            document.getElementById("opportunities").classList.add("art-color");
+            fullScreenBtn.classList.add("art-background");
         }
     }
 
@@ -207,7 +223,7 @@ window.addEventListener("load", function() {
         if (word.indexOf(letter) != -1) { //Si existe la letra en la palabra a adivinar
             for (var i = 0; i < word.length; i++) {
                 if (word[i] == letter) {
-                    b.style.color = "rgba(0, 255, 0, 0.6)";
+                    b.classList.add("green");
                     selectedWord[i] = letter;
                 }
             }
@@ -215,21 +231,23 @@ window.addEventListener("load", function() {
             h3.innerHTML = "Bien!";
             h3.className += "press-message green fade-in animation";
         } else { // Si no existe la letra en la palabra a adivinar
-            b.style.color = "rgba(255, 0, 0, 0.6)";
+            b.classList.add("red");
             errors++;
             count--;
             document.getElementById("opportunities").innerHTML = count;
             h3.innerHTML = "Fallo!";
             h3.className += "press-message red fade-in animation";
             if (count != 0) {
-                document.getElementById("image" + count).className = "fade-in";
+                document.getElementById("image" + count).classList.add("fade-in");
             } else {
                 for (var i = 0; i < 6; i++) {
                     if (i != 5) {
-                        document.getElementById("image" + i).className = " fade-out";
+                        document.getElementById("image" + i).classList.remove("fade-in");
+                        document.getElementById("image" + i).classList.add("fade-out");
                     }
                 }
-                document.getElementById("image" + count).className = "fade-in";
+                document.getElementById("image" + count).classList.remove("fade-out");
+                document.getElementById("image" + count).classList.add("fade-in");
             }
         }
         checkEnd(selectWords());
@@ -242,16 +260,16 @@ window.addEventListener("load", function() {
     function changeTextClueOne(words) {
         clueTexts[0].innerHTML = words[random][1];
     }
-    
+
 
     // Comprueba si ha finalizado
     function checkEnd(words) {
-        if (selectedWord.indexOf("_") == -1) {            
+        if (selectedWord.indexOf("_") == -1) {
             for (var i = 0; i < buttons.length; i++) {
                 buttons[i].disabled = true;
             }
             guessedWords.push(words.splice(random, 1));
-            right(); 
+            right();
 
         } else if (count == 0) {
             for (var i = 0; i < buttons.length; i++) {
@@ -262,20 +280,87 @@ window.addEventListener("load", function() {
     }
 
     //Función que se invocará cuando el usuario acierte la palabra y actualizará los datos y colores en el winPanel
-    function right(){
-        data[0].innerHTML = "¡¡¡ Enhorabuena !!!;"
+    function right() {
+        data[0].innerHTML = "¡¡¡ Enhorabuena !!!";
         data[1].innerHTML = "Has acertado la palabra";
         data[2].innerHTML = errors;
-        for(let i = 0; i < data.length; i++){
-            data[i].classList.add("")
+
+        if (localStorage.getItem('categoryIndex') == 1) {
+            for (let i = 0; i < data.length; i++) {
+                data[i].classList.add("history-color");
+            }
+            againButton.classList.add("history-background");
+            homeButton.classList.add("history-background");
+            document.querySelector("#modal").classList.add("history-border");
+        } else if (localStorage.getItem('categoryIndex') == 2) {
+            for (let i = 0; i < data.length; i++) {
+                data[i].classList.add("art-color");
+            }
+            againButton.classList.add("art-background");
+            homeButton.classList.add("art-background");
+            document.querySelector("#modal").classList.add("art-border");
         }
-        winPanel.style.display = "block";
-        winPanel.style.zIndex = "99";
+
+        setTimeout(function() {
+            winPanel.style.display = "flex";
+            winPanel.style.zIndex = "99";
+        }, 1000);
     }
 
     //Función que se invocará cuando el usuario no acierte la palabra
-    function wrong(){
-        winPanel.style.display = "block";
+    function wrong() {
+        data[0].innerHTML = "Oohhh... ¡Qué pena!"
+        data[1].innerHTML = "No has acertado la palabra";
+        data[2].innerHTML = errors;
+
+        if (localStorage.getItem('categoryIndex') == 1) {
+            for (let i = 0; i < data.length; i++) {
+                data[i].classList.add("history-color");
+            }
+            againButton.classList.add("history-background");
+            homeButton.classList.add("history-background");
+            document.querySelector("#modal").classList.add("history-border");
+        } else if (localStorage.getItem('categoryIndex') == 2) {
+            for (let i = 0; i < data.length; i++) {
+                data[i].classList.add("art-color");
+            }
+            againButton.classList.add("art-background");
+            homeButton.classList.add("art-background");
+            document.querySelector("#modal").classList.add("art-border");
+        }
+
+        setTimeout(function() {
+            winPanel.style.display = "flex";
+            winPanel.style.zIndex = "99";
+        }, 1000);
+    }
+
+    //Función que se invocará cuando se pulse el botón de pantalla completa
+    function fullscreen(button) {
+        if (!isFullScreen) {
+            isFullScreen = true;
+            if (button.requestFullscreen) {
+                button.requestFullscreen();
+            } else if (button.mozRequestFullScreen) {
+                button.mozRequestFullScreen();
+            } else if (button.webkitRequestFullscreen) {
+                button.webkitRequestFullscreen();
+            } else if (button.msRequestFullscreen) {
+                button.msRequestFullscreen();
+            }
+            document.querySelector(".main-container").style.marginTop = "10%";
+        } else {
+            isFullScreen = false;
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            }
+            document.querySelector(".main-container").style.marginTop = "4%";
+        }
+
     }
 
     // Iniciar juego
@@ -291,7 +376,11 @@ window.addEventListener("load", function() {
             //Reiniciamos las letras con tilde
             for (let i = 0; i < accentLetters.length; i++) {
                 accentLetters[i].disabled = false;
-                accentLetters[i].style.color = "#00A676";
+                if (accentLetters[i].classList.contains("red")) {
+                    accentLetters[i].classList.remove("red");
+                } else if (accentLetters[i].classList.contains("green")) {
+                    accentLetters[i].classList.remove("green");
+                }
             }
 
             //Reiniciamos los paneles de pista
@@ -303,7 +392,7 @@ window.addEventListener("load", function() {
 
             //Reiniciamos las imágenes de los fallos y las oportunidades
             for (var i = 0; i < 6; i++) {
-                document.getElementById("image" + i).className = " fade-out";
+                document.getElementById("image" + i).className = "img";
             }
             document.getElementById("opportunities").innerHTML = count;
 
@@ -316,21 +405,37 @@ window.addEventListener("load", function() {
         console.log(localStorage.getItem("categoryIndex"));
         generateWord(selectWords());
         drawDashes(word.length);
-        generateABC("a", "z");        
+        generateABC("a", "z");
         colour(localStorage.getItem("categoryIndex"));
         addEvList(selectWords());
         changeTextClueOne(selectWords());
+    }
+
+    function homePage() {
+        winPanel.style.display = "none";
+        winPanel.style.zIndex = 0;
+        start(selectWords());
+        history.pushState(null, "", "index.html");
+        location.reload();
     }
 
 
     //--------------PROGRAMA--------------
     start(selectWords());
     console.log(buttons);
+    fullScreenBtn.addEventListener("click", function() { fullscreen(body) });
     reload.addEventListener("click", function(event) {
         event.preventDefault();
         re = 1;
         start(selectWords());
-    })
-
-
+    });
+    startBtn.addEventListener("click", homePage);
+    homeButton.addEventListener("click", homePage);
+    againButton.addEventListener("click", function(event) {
+        winPanel.style.display = "none";
+        start(selectWords());
+        history.pushState(null, "", "category-selection.html");
+        location.reload();
+        localStorage.setItem("gameIndex", "1");
+    });
 })
