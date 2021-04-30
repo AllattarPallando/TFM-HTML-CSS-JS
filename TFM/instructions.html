@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <title>Instrucciones para jugar</title>
+
+    <!--METADATOS-->
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Página de instrucciones para jugar a los juegos">
+    <meta name="keywords" content="minijuegos, educación, palabras, ahorcado, memory-game, instrucciones">
+
+    <!--LINKS-->
+    <link rel="stylesheet" href="css/instructions.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+
+</head>
+
+<body>
+    <nav>
+        <ul>
+            <li><a href="#" class="active">Ahorcado</a></li>
+            <li><a href="#">Memory</a></li>
+        </ul>
+    </nav>
+
+    <section class="panels">
+        <div class="panel active">
+            <div class="instruction hunged active">
+                <p><span class="numeration hunged">1.</span> Primero tendrás que seleccionar la categoría que quieres jugar:</p>
+                <ul>
+                    <li><img src="img/Fondo_Cartas_Geografia.png" alt="Imagen de geografía"> Geografía</li>
+                    <li><img src="img/Fondo_Cartas_Historia.png" alt="Imagen de historia"> Historia</li>
+                    <li><img src="img/Fondo_Cartas_Arte.png" alt="Imagen de Arte">Arte</li>
+                </ul>
+
+                <p><span class="numeration hunged">2.</span> Cuando empiece el juego, en la parte inferior izquierda como puedes ver en la foto:</p>
+                <img src="img/InstruccionesA.png" alt="Instrucciones-Ahorcado1">
+                <p>Podrás comprobar el número de letras que tiene la palabra que buscas, solo tendrás que contar los guiones.</p>
+                <button class="next-btn"><i class="fas fa-arrow-alt-circle-right"></i></button>
+            </div>
+            <div class="instruction hunged">
+                <p><span class="numeration hunged">3.</span> Una vez sepas cuántas letras tiene la palabra podrás comprobar la pista inicial en el panel superior, para leer las demás tendrás que pulsar encima de ellas</p>
+                <img src="img/InstruccionesA-2.png" alt="Instrucciones-Ahorcado2">
+                <p>En dicho panel también encontrarás dos botones, el primero sirve paa reiniciar el juego en la misma categoría escogida y <br> el segundo para volver a la página inicial de la web en caso de querer cambiar de juego o cateogría</p>
+                <button class="next-btn"><i class="fas fa-arrow-alt-circle-right"></i></button>
+            </div>
+            <div class="instruction hunged">
+                <p><span class="numeration hunged">4.</span> Una vez leas la pista inicial puedes empezar a probar letras, para ello tendrás que pulsar el botón de la letra que quieras probar:</p>
+                <img src="img/InstruccionesA-3.png" alt="Instrucciones-Ahorcado3">
+                <p><span class="numeration hunged">5.</span> Podrás comprobar las oportunidades que te quedan encima de los botones de las letras:</p>
+                <img src="img/InstruccionesA-4.png" alt="Instrucciones-Ahorcado4">
+                <button class="next-btn"><i class="fas fa-arrow-alt-circle-right"></i></button>
+            </div>
+            <div class="instruction hunged">
+                <p><span class="numeration hunged">6.</span> Como en cualquier juego del ahorcado cada vez que falles una letra irán apareciendo las imágenes, tu objetivo es adivinar la palabra antes de completar el dibujo</p>
+                <img src="img/InstruccionesA-5.png" alt="Instrucciones-Ahorcado5">
+                <p>Ya estás list@ para disfrutar del juego. ¡ Te deseamos mucha suerte !</p>
+                <a href="index.html">Volver al inicio</a>
+            </div>
+
+        </div>
+        <div class="panel">
+            <div class="instruction memory active">
+                <p><span class="numeration memory">1.</span> Primero tendrás que seleccionar la categoría que quieres jugar:</p>
+                <ul>
+                    <li><img src="img/Fondo_Cartas_Geografia.png" alt="Imagen de geografía"> Geografía</li>
+                    <li><img src="img/Fondo_Cartas_Historia.png" alt="Imagen de historia"> Historia</li>
+                    <li><img src="img/Fondo_Cartas_Arte.png" alt="Imagen de Arte">Arte</li>
+                </ul>
+                <p><span class="numeration memory">2.</span> Cuando empiece el juego, en la parte superior como puedes ver en la foto:</p>
+                <img src="img/InstruccionesM.png" alt="Instrucciones-Memory1">
+                <p>Podrás comprobar en todo momento los movimientos que llevas, el tiempo que ha pasado desde que empezaste a jugar y la puntuación que vayas consiguiendo mientras juegas.<br>Por otro lado también encontrarás un botón que podrás pulsar en
+                    caso de querer reiniciar el juego.</p>
+                <button type="button" class="next-btn"><i class="fas fa-arrow-alt-circle-right"></i></button>
+            </div>
+            <div class="instruction memory">
+                <p><span class="numeration memory">3.</span> Para jugar lo único que tienes que hacer es pulsar en las cartas del tablero e intentar memorizar la carta que sale, <br>para en caso de fallar cuando encuentres la pareja correspondiente no tengas
+                    que gastar movimientos en falso</p>
+                <img src="img/InstruccionesM-2.png" alt="Instrucciones-Memory2">
+                <p>Ya estás list@ para disfrutar del juego. ¡ Te deseamos mucha suerte !</p>
+                <a href="index.html">Volver al inicio</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="js/instructions.js"></script>
+</body>
+
+</html>

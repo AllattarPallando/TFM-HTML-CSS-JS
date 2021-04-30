@@ -90,7 +90,7 @@ window.addEventListener("load", function() {
 
     //Función que indica el dispositivo en elq ue se está visualizndo la web
     function whatDevice() {
-        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        if (/Android|webOS|iPhone|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
             device = "Mobile";
         }
     }
@@ -98,19 +98,19 @@ window.addEventListener("load", function() {
     //Seleccionar array de cartas en función a la categoría seleccionada previamente
     function selectWords() {
         if (localStorage.getItem('categoryIndex') == 0) {
-            if (device === "PC" || device === "Tablet") {
+            if (device === "PC") {
                 return geographyCardsPC[Math.floor(Math.random() * 2)];
             } else if (device === "Mobile") {
                 return geographyCardsMobile[Math.floor(Math.random() * 3)];
             }
         } else if (localStorage.getItem('categoryIndex') == 1) {
-            if (device === "PC" || device === "Tablet") {
+            if (device === "PC") {
                 return historyCardsPC[Math.floor(Math.random() * 2)];
             } else if (device === "Mobile") {
                 return historyCardsMobile[Math.floor(Math.random() * 3)];
             }
         } else if (localStorage.getItem('categoryIndex') == 2) {
-            if (device === "PC" || device === "Tablet") {
+            if (device === "PC") {
                 return artCardsPC[Math.floor(Math.random() * 2)];
             } else if (device === "Mobile") {
                 return artCardsMobile[Math.floor(Math.random() * 3)];
@@ -262,9 +262,9 @@ window.addEventListener("load", function() {
 
 
     /*Función que lleva el conteo de las estrellas conseguidas, 
-    por cada determinado número de aciertos se consigue media estrella hasta conseguirlas todas*/
-    function starsCounter() {
-        //Si se acertó la primera pareja en menos de 5 movimientos
+    por cada determinado número de aciertos se consigue media estrella hasta conseguirlas todas PC*/
+    function starsCounterPC() {
+        //Si se acertó la primera pareja en menos de 10 movimientos
         if (matched.length === 2 && moves < 10) {
             console.log("Pintamos la primera media estrella");
             stars[0].firstChild.classList.remove("far");
@@ -274,14 +274,14 @@ window.addEventListener("load", function() {
             stars[0].firstChild.classList.add("fa-star-half-alt");
             starsCount += 0.5;
         }
-        //Si se acertó la segunda pareja en menos de 7 movimientos
+        //Si se acertó la segunda pareja en menos de 15 movimientos
         else if ((matched.length === 4) && (moves < 15)) {
             stars[0].firstChild.classList.remove("fa-star-half-alt");
             //Consigues una estrella
             stars[0].firstChild.classList.add("fa-star");
             starsCount += 0.5;
         }
-        //Si se acertó la tercera pareja en menos de 9 movimientos
+        //Si se acertó la tercera pareja en menos de 20 movimientos
         else if ((matched.length === 6) && (moves < 20)) {
             stars[1].firstChild.classList.remove("far");
             stars[1].firstChild.classList.remove("fa-star");
@@ -290,14 +290,14 @@ window.addEventListener("load", function() {
             stars[1].firstChild.classList.add("fa-star-half-alt");
             starsCount += 0.5;
         }
-        //Si se acertó la cuarta pareja en menos de 11 movimientos
+        //Si se acertó la cuarta pareja en menos de 21 movimientos
         else if ((matched.length === 8) && (moves < 21)) {
             stars[1].firstChild.classList.remove("fa-star-half-alt");
             //Consigues dos estrellas
             stars[1].firstChild.classList.add("fa-star");
             starsCount += 0.5;
         }
-        //Si se acertó la quinta pareja en menos de 13 movimientos
+        //Si se acertó la quinta pareja en menos de 23 movimientos
         else if ((matched.length === 10) && (moves < 23)) {
             stars[2].firstChild.classList.remove("far");
             stars[2].firstChild.classList.remove("fa-star");
@@ -306,11 +306,52 @@ window.addEventListener("load", function() {
             stars[2].firstChild.classList.add("fa-star-half-alt");
             starsCount += 0.5;
         }
-        //Si se acertó la última pareja en menos de 15 movimientos
+        //Si se acertó la última pareja en menos de 25 movimientos
         else if ((matched.length === 12) && (moves < 25)) {
             stars[2].firstChild.classList.remove("fa-star-half-alt");
             //Consigues todas las estrellas
             stars[2].firstChild.classList.add("fa-star");
+            starsCount += 0.5;
+        }
+    }
+
+    /*Función que lleva el conteo de las estrellas conseguidas, 
+    por cada determinado número de aciertos se consigue media estrella hasta conseguirlas todas ANDROID*/
+    function starsCounterMobile() {
+        //Si se acertó la primera pareja en menos de 6 movimientos
+        if (matched.length === 2 && moves < 6) {
+            console.log("Pintamos la primera estrella");
+            stars[0].firstChild.classList.remove("far");
+            stars[0].firstChild.classList.remove("fa-star");
+            //Consigues una estrella
+            stars[0].firstChild.classList.add("fas");
+            stars[0].firstChild.classList.add("fa-star");
+            starsCount += 1;
+        }
+        //Si se acertó la segunda pareja en menos de 7 movimientos
+        else if ((matched.length === 4) && (moves < 7)) {
+            console.log("Pintamos la segunda estrella");
+            stars[1].firstChild.classList.remove("far");
+            stars[1].firstChild.classList.remove("fa-star");
+            //Consigues dos estrellas
+            stars[1].firstChild.classList.add("fas");
+            stars[1].firstChild.classList.add("fa-star");
+            starsCount += 1;
+        }
+        //Si se acertó la tercera pareja en menos de 8 movimientos
+        else if ((matched.length === 6) && (moves < 8)) {
+            stars[2].firstChild.classList.remove("far");
+            stars[2].firstChild.classList.remove("fa-star");
+            //Consigues dos estrellas y media
+            stars[2].firstChild.classList.add("fas");
+            stars[2].firstChild.classList.add("fa-star-half-alt");
+            starsCount += 0.5;
+        }
+        //Si se acertó la cuarta pareja en menos de 9 movimientos
+        else if ((matched.length === 8) && (moves < 9)) {
+            stars[1].firstChild.classList.remove("fa-star-half-alt");
+            //Consigues tres estrellas
+            stars[1].firstChild.classList.add("fa-star");
             starsCount += 0.5;
         }
     }
@@ -350,7 +391,11 @@ window.addEventListener("load", function() {
             // Vaciamos el array de cartas volteadas
             fliped = [];
             movesCount();
-            starsCounter();
+            if (device === "PC") {
+                starsCounterPC();
+            } else if (device === "Mobile") {
+                starsCounterMobile();
+            }
             // Comprobamos si el usuario ha acertado los 6 pares de cartas
             winGame();
         }, 600);
@@ -379,9 +424,10 @@ window.addEventListener("load", function() {
 
     //Función que comprueba si se han acertado todas las parejas
     function winGame() {
-        if (matched.length === 12) {
+        if (matched.length === selectWords().length) {
             stopTimeCount();
             updateWinData();
+            winPanel.parentElement.style.zIndex = "99";
             winPanel.style.display = "block";
         }
     }
@@ -488,6 +534,7 @@ window.addEventListener("load", function() {
         // Vaciar el mazo
         resetCardsPanel();
         // Empezar el juego de nuevo
+        whatDevice();
         colour(localStorage.getItem("categoryIndex"));
         createCards(selectWords());
         addEvLiCards();
@@ -599,7 +646,7 @@ window.addEventListener("load", function() {
 
 
     // *********** PROGRAMA ****************
-
+    whatDevice();
     colour(localStorage.getItem("categoryIndex"));
     createCards(selectWords());
     addEvLiCards();

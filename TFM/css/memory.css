@@ -179,7 +179,7 @@ button.full-screen-button i.fas {
 
 .win-panel {
     position: absolute;
-    z-index: 99;
+    z-index: -1;
     width: 40%;
 }
 
@@ -254,12 +254,79 @@ button.full-screen-button i.fas {
     background-color: #dafff1 !important;
 }
 
-@media screen and (max-width: 640px) {
+@media (min-width: 568px) and (max-width: 920px) {
     .main-container {
         width: 100%;
+        height: 100vh;
         margin-top: 0;
+    }
+    .mark-panel {
+        height: 20%;
+        font-size: 0.7em;
+    }
+    .m-count,
+    .timer {
+        padding: 10px 20px 0 20px;
+    }
+    .star {
+        padding-top: 0;
+    }
+    .reset {
+        padding: 10px 22px 17.6px 0;
+    }
+    .reset i {
+        font-size: 1.1em;
+    }
+    .cards {
+        height: 80%;
+        padding: 5px 10px;
+    }
+    .card {
+        flex-basis: 25%;
+        padding: 5px 10px;
+    }
+    .card .text {
+        font-size: 0.8em;
+    }
+    .win-panel {
+        width: 80%;
+        height: 90%;
+    }
+    .modal {
+        height: 100%;
+    }
+    .modal h2 {
+        font-size: 1.2em;
+    }
+    .modal p {
+        font-size: 0.8em;
+    }
+    .modal button {
+        position: absolute;
+        bottom: 30px;
+        margin: 0;
+    }
+    .modal .reset-btn-wp {
+        left: 10%;
+    }
+    .modal .home-btn {
+        right: 10%;
     }
     .full-screen-button {
         display: none;
     }
 }
+
+@media (max-height: 450px) {
+    .card {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .card-info {
+        width: 125px;
+        height: 125px;
+    }
+}
+
+@media (max-height:) {}

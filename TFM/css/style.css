@@ -35,11 +35,19 @@ header {
 /*Ajustes de los encabezados*/
 
 h1,
-h2 {
+h2,
+.instructions {
     font-weight: 700;
     color: #fff;
     text-align: start;
     text-shadow: 1.7px 1.7px #000;
+}
+
+
+/*Estilo del link a la página con las instrucciones de los juegos*/
+
+.instructions {
+    text-decoration: none;
 }
 
 
